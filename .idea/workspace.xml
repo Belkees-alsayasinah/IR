@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;Refinment&quot;">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/IR.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/AvgMAP.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/NewMap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/QueryProcess.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/TextProcessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/Tf-Word2Vec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/Word2Vec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/gensim00.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/تت.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/Doc2VecSimilarity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/MAP.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/QuerySearchGensim.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/SearchDocunent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/TF-IDF.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/TextProcessor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/Word_EMBEDDING_MODEL.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/count.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/doc2vec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/queryText.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/ل.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cluster-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2fuGkvDozahasEncGLe8NQfFutJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Reverting in main",
+    "last_opened_file_path": "C:/Users/sayas/PycharmProjects/IR/R",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sayas\PycharmProjects\IR\R" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR\Elevent" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sayas\PycharmProjects\IR" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR\First" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR\R" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR\Elevent" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="TextProcessor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="IR" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TextProcessor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="hh" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="IR" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hh.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="IR" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\sayas\PycharmProjects\IR\First\main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.TextProcessor" />
+        <item itemvalue="Python.hh" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="" />
+      <created>1714643696591</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714643696591</updated>
+    </task>
+    <task id="LOCAL-00001" summary="&quot;Model&quot;">
+      <option name="closed" value="true" />
+      <created>1714735426062</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714735426062</updated>
+    </task>
+    <task id="LOCAL-00002" summary="&quot;Data Processing Done&quot;">
+      <option name="closed" value="true" />
+      <created>1715004149529</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715004149529</updated>
+    </task>
+    <task id="LOCAL-00003" summary="&quot;Processing&quot;">
+      <option name="closed" value="true" />
+      <created>1715174184697</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715174184697</updated>
+    </task>
+    <task id="LOCAL-00004" summary="&quot;TextProcessor&quot;">
+      <option name="closed" value="true" />
+      <created>1715174453247</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715174453247</updated>
+    </task>
+    <task id="LOCAL-00005" summary="&quot;TextProcessor0&quot;">
+      <option name="closed" value="true" />
+      <created>1715542563123</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715542563123</updated>
+    </task>
+    <task id="LOCAL-00006" summary="&quot;TF-IDF&quot;">
+      <option name="closed" value="true" />
+      <created>1715589388398</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715589388398</updated>
+    </task>
+    <task id="LOCAL-00007" summary="&quot;محاولات بائسة&quot;">
+      <option name="closed" value="true" />
+      <created>1715630097413</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715630097413</updated>
+    </task>
+    <task id="LOCAL-00008" summary="&quot;محاولات بائسة&quot;">
+      <option name="closed" value="true" />
+      <created>1715631028142</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1715631028142</updated>
+    </task>
+    <task id="LOCAL-00009" summary="&quot;محاولات بائسة&quot;">
+      <option name="closed" value="true" />
+      <created>1715690339032</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1715690339032</updated>
+    </task>
+    <task id="LOCAL-00010" summary="&quot;محاولات بائسة&quot;">
+      <option name="closed" value="true" />
+      <created>1715690397389</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1715690397389</updated>
+    </task>
+    <task id="LOCAL-00011" summary="&quot;Indexing&quot;">
+      <option name="closed" value="true" />
+      <created>1715700987947</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1715700987947</updated>
+    </task>
+    <task id="LOCAL-00012" summary="&quot;Ranking &amp; Matching&quot;">
+      <option name="closed" value="true" />
+      <created>1715804170997</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1715804170997</updated>
+    </task>
+    <task id="LOCAL-00013" summary="&quot;Evaluation 50&quot;%&quot;">
+      <option name="closed" value="true" />
+      <created>1716231983375</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1716231983375</updated>
+    </task>
+    <task id="LOCAL-00014" summary="&quot;Doc2Vec&quot;">
+      <option name="closed" value="true" />
+      <created>1716465364197</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1716465364197</updated>
+    </task>
+    <task id="LOCAL-00015" summary="&quot;Refinment&quot;">
+      <option name="closed" value="true" />
+      <created>1716586212368</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1716586212368</updated>
+    </task>
+    <task id="LOCAL-00016" summary="&quot;Refinment&quot;">
+      <option name="closed" value="true" />
+      <created>1716586775354</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1716586775354</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="&quot;Model&quot;" />
+    <MESSAGE value="&quot;Data Processing Done&quot;" />
+    <MESSAGE value="&quot;Processing&quot;" />
+    <MESSAGE value="&quot;TextProcessor&quot;" />
+    <MESSAGE value="&quot;TextProcessor0&quot;" />
+    <MESSAGE value="&quot;TF-IDF&quot;" />
+    <MESSAGE value="&quot;محاولات بائسة&quot;" />
+    <MESSAGE value="&quot;Indexing&quot;" />
+    <MESSAGE value="&quot;Ranking &amp; Matching&quot;" />
+    <MESSAGE value="&quot;Evaluation 50&quot;%&quot;" />
+    <MESSAGE value="&quot;Doc2Vec&quot;" />
+    <MESSAGE value="&quot;Refinment&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Refinment&quot;" />
+  </component>
+</project>
