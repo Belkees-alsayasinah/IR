@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Query Interface</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    body {
+      padding-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Query Interface</h1>
+
+    <form id="queryForm" class="mt-4">
+      <div class="form-group">
+        <label for="queryInput">Enter your query:</label>
+        <input type="text" class="form-control" id="queryInput" name="query">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div id="resultsSection" class="mt-4">
+      <h2>Results</h2>
+      <ul id="resultList" class="list-group">
+        <!-- The query results will be dynamically inserted here -->
+      </ul>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script>
+    document.getElementById('queryForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var query = document.getElementById('queryInput').value;
+      var request = new XMLHttpRequest();
+      request.open('POST', '/cluster-query', true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.onreadystatechange = function() {
+        if (request.readyState === 4 && request.status === 200) {
+          var response = JSON.parse(request.responseText);
+          var resultList = document.getElementById('resultList');
+          resultList.innerHTML = '';
+          response.relevant_documents_retrieved.forEach(function(result) {
+            var listItem = document.createElement('li');
+            listItem.className = 'list-group-item';
+            listItem.textContent = result;
+            resultList.appendChild(listItem);
+          });
+        }
+      };
+      request.send('query=' + encodeURIComponent(query));
+    });
+  </script>
+</body>
+</html>
