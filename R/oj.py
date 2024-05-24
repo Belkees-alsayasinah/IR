@@ -94,14 +94,6 @@ def vectorize_texts(texts, processor):
         print(f"Sample texts: {texts[:5]}")
         sys.exit(1)
     # Save the vectorizer
-    vectorizer_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer2.pkl"
-    with open(vectorizer_file, 'wb') as file:
-        joblib.dump(vectorizer, file)
-
-    # Save the TF-IDF matrix
-    output_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix2.pkl"
-    with open(output_file, 'wb') as file:
-        joblib.dump(tfidf_matrix, file)
 
     return tfidf_matrix, vectorizer
 
@@ -122,7 +114,7 @@ if __name__ == '__main__':
     print("dataset_path")
     processor = TextProcessor()
 
-    dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv'
+    dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\try.tsv'
     data = load_dataset(dataset_path)
     print("dataset_path")
 

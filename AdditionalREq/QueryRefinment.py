@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jun  8 16:49:07 2023
 
-@author: Nabeel
-"""
 import csv
 class Query_Refinement:
     def refine_query(self, query):
