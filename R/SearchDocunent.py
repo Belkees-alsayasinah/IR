@@ -10,19 +10,19 @@ def process_query(query_text, processor):
     return process_text(query_text, processor)
 
 
-# Load the corpus from TSV
+
 corpus_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv"
 df = pd.read_csv(corpus_file, delimiter='\t', header=None, names=['id', 'text'])
 
-# Drop rows with NaN values in the 'text' column (if any)
+
 df = df.dropna(subset=['text'])
 
-# Load the TF-IDF matrix9
+
 tfidf_matrix_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\all term\tfidf_matrix1.pkl"
 with open(tfidf_matrix_file, 'rb') as file:
     tfidf_matrix = joblib.load(file)
 
-# Load the TfidfVectorizer
+
 vectorizer_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\all term\tfidf_vectorizer1.pkl"
 with open(vectorizer_file, 'rb') as file:
     vectorizer = joblib.load(file)

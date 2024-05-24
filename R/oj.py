@@ -1,7 +1,3 @@
-# Import necessary libraries and modules
-from os import name
-
-import joblib
 import pandas as pd
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -9,13 +5,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 import numpy as np
 import sys
-import re
 from First.TextProcessing import TextProcessor, process_text
 
 sys.path.append('.')
 
 
-# Define precision and recall calculation function
 def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     y_pred_binary = (y_pred >= threshold).astype(int)
     precision = precision_score(y_true, y_pred_binary, average='micro')
@@ -23,19 +17,17 @@ def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     return precision, recall
 
 
-# Define MAP score calculation function
+
 def calculate_map_score(y_true, y_pred):
     return average_precision_score(y_true, y_pred, average='micro')
 
 
-# Save dataset function
 def save_dataset(docs, file_path):
     with open(file_path, 'w', encoding='utf-8') as file:
         for pid, text in enumerate(docs, start=1):
             file.write(f"{pid}\t{text}\n")
 
 
-# Load dataset function
 def load_dataset(file_path):
     try:
         data = pd.read_csv(file_path, delimiter='\t', header=None, names=['pid', 'text'])
@@ -45,7 +37,7 @@ def load_dataset(file_path):
     return data
 
 
-# Load queries function
+
 def load_queries(queries_paths):
     queries = []
     for file_path in queries_paths:
@@ -66,7 +58,6 @@ with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\de
     words_to_remove = file.read().splitlines()
 
 
-# Clean text function
 def clean_text(text, words_to_remove):
     words = text.split()
     cleaned_words = [word for word in words if word.lower() not in words_to_remove]
@@ -74,7 +65,6 @@ def clean_text(text, words_to_remove):
     return cleaned_text
 
 
-# Process texts function
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
@@ -84,7 +74,6 @@ def process_texts(texts, processor):
     return processed_texts
 
 
-# Vectorize texts function with a custom preprocessor
 def vectorize_texts(texts, processor):
     vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor))
     try:
@@ -93,7 +82,6 @@ def vectorize_texts(texts, processor):
         print(f"Error during TF-IDF vectorization: {e}")
         print(f"Sample texts: {texts[:5]}")
         sys.exit(1)
-    # Save the vectorizer
 
     return tfidf_matrix, vectorizer
 
@@ -125,12 +113,12 @@ if __name__ == '__main__':
     print("start")
     processed_texts = process_texts(data['text'], processor)
 
-    # Ensure processed_texts is not empty
+
     if not processed_texts:
         print("All documents are empty after preprocessing.")
         sys.exit(1)
 
-    # save_dataset(processed_texts, "cleaned_texts.txt")
+
 
     tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
 

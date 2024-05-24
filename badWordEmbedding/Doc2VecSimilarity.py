@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
 from First.TextProcessing import TextProcessor, process_text
-
+#البحث عن نتائج الاستعلامات - محاولة فاشلة أيضاً
 processor = TextProcessor()
 class Doc2VecSimilarity:
     def __init__(self, model_path, data_path):
@@ -36,10 +36,10 @@ class Doc2VecSimilarity:
 model_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\doc2vec\Doc2Vec.model"
 data_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv"
 
-# Create Doc2VecSimilarity instance
+
 doc2vec_similarity = Doc2VecSimilarity(model_file, data_file)
 
-# Example usage
+
 query = "what is the difference between a percolator and an espresso make"
 results = doc2vec_similarity.search_similar_documents(query)
 print("Top similar documents:")

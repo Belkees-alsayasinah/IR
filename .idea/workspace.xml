@@ -4,37 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;Refinment&quot;">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/IR.iml" beforeDir="false" />
+    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;oj&quot;">
+      <change afterPath="$PROJECT_DIR$/badWordEmbedding/WORD_EMBEDDING_MODEL.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dov2VecModel/AvgMAP.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/NewMap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/NewMap.py" beforeDir="false" afterPath="$PROJECT_DIR$/First/NewMap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/First/QueryProcess.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/TextProcessing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/Tf-Word2Vec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/Tf-Word2Vec.py" beforeDir="false" afterPath="$PROJECT_DIR$/badWordEmbedding/Tf-Word2Vec.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/First/Word2Vec.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/First/gensim00.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/First/تت.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/Doc2VecSimilarity.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/MAP.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/Doc2VecSimilarity.py" beforeDir="false" afterPath="$PROJECT_DIR$/badWordEmbedding/Doc2VecSimilarity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/MAP.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/MAP.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/R/QuerySearchGensim.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/SearchDocunent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/TF-IDF.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/SearchDocunent.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/SearchDocunent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/R/TextProcessor.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/R/Word_EMBEDDING_MODEL.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/R/count.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/doc2vec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/doc2vec.py" beforeDir="false" afterPath="$PROJECT_DIR$/badWordEmbedding/doc2vec.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/R/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/queryText.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/oj.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/oj.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/queryText.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/queryText.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/R/ل.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/cluster-index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +59,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Reverting in main",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/sayas/PycharmProjects/IR/R",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
@@ -84,7 +77,7 @@
       <recent name="C:\Users\sayas\PycharmProjects\IR\Elevent" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager">
     <configuration name="TextProcessor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="IR" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -292,7 +285,23 @@
       <option name="project" value="LOCAL" />
       <updated>1716586775354</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="&quot;oj&quot;">
+      <option name="closed" value="true" />
+      <created>1716587900134</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1716587900134</updated>
+    </task>
+    <task id="LOCAL-00018" summary="&quot;oj&quot;">
+      <option name="closed" value="true" />
+      <created>1716587966143</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1716587966143</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -319,6 +328,7 @@
     <MESSAGE value="&quot;Evaluation 50&quot;%&quot;" />
     <MESSAGE value="&quot;Doc2Vec&quot;" />
     <MESSAGE value="&quot;Refinment&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Refinment&quot;" />
+    <MESSAGE value="&quot;oj&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;oj&quot;" />
   </component>
 </project>

@@ -23,7 +23,6 @@ if __name__ == "__main__":
         data = file.readlines()
 
 
-    # Test the model
     model_path = "d2v.model"
     doc2vec_model = Doc2VecModel(model_path)
 

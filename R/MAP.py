@@ -32,7 +32,6 @@ def mean_average_precision(queries_and_answers):
 
 file_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.forum.jsonl',r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl']
 
-# قراءة الاستعلامات والإجابات الصحيحة من جميع الملفات
 queries_and_answers = []
 for file_path in file_paths:
     with open(file_path, 'r', encoding='utf-8') as file:

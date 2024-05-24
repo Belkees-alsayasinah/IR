@@ -1,20 +1,17 @@
-# Import necessary libraries and modules
-from os import name
 import pandas as pd
 import json
-from gensim00.models.doc2vec import Doc2Vec, TaggedDocument
+from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 from sklearn.model_selection import train_test_split
 import numpy as np
 import sys
-import re
 from First.TextProcessing import TextProcessor, process_text
 
 sys.path.append('.')
 
 
-# Define precision and recall calculation function
+# نفسا أفضل نتيجة بس عم احسب الـ Evaluation
 def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     y_pred_binary = (y_pred >= threshold).astype(int)
     precision = precision_score(y_true, y_pred_binary, average='micro')
@@ -22,19 +19,16 @@ def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     return precision, recall
 
 
-# Define MAP score calculation function
 def calculate_map_score(y_true, y_pred):
     return average_precision_score(y_true, y_pred, average='micro')
 
 
-# Save dataset function
 def save_dataset(docs, file_path):
     with open(file_path, 'w', encoding='utf-8') as file:
         for pid, text in enumerate(docs, start=1):
             file.write(f"{pid}\t{text}\n")
 
 
-# Load dataset function
 def load_dataset(file_path):
     try:
         data = pd.read_csv(file_path, delimiter='\t', header=None, names=['pid', 'text'])
@@ -44,7 +38,6 @@ def load_dataset(file_path):
     return data
 
 
-# Load queries function
 def load_queries(queries_paths):
     queries = []
     for file_path in queries_paths:
@@ -59,13 +52,11 @@ def load_queries(queries_paths):
     return queries
 
 
-# Load words to remove
 with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
           encoding='utf-8') as file:
     words_to_remove = file.read().splitlines()
 
 
-# Clean text function
 def clean_text(text, words_to_remove):
     words = text.split()
     cleaned_words = [word for word in words if word.lower() not in words_to_remove]
@@ -73,7 +64,6 @@ def clean_text(text, words_to_remove):
     return cleaned_text
 
 
-# Process texts function
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
@@ -83,7 +73,6 @@ def process_texts(texts, processor):
     return processed_texts
 
 
-# Vectorize texts function using Doc2Vec
 def vectorize_texts(data, model):
     vectors = []
     for text in data:
@@ -92,7 +81,6 @@ def vectorize_texts(data, model):
     return np.array(vectors)
 
 
-# Get documents for query function
 def get_documents_for_query(query, doc_vectors, model, data):
     print("query:" + query)
     query_vector = model.infer_vector(query.split())
@@ -107,7 +95,6 @@ def get_documents_for_query(query, doc_vectors, model, data):
     return top_documents, cosine_similarities[top_documents_indices]
 
 
-# Main execution block
 if __name__ == '__main__':
     processor = TextProcessor()
 
@@ -126,18 +113,14 @@ if __name__ == '__main__':
         print("All documents are empty after preprocessing.")
         sys.exit(1)
 
-    # Convert texts to TaggedDocument for Doc2Vec
     tagged_data = [TaggedDocument(words=text.split(), tags=[str(i)]) for i, text in enumerate(processed_texts)]
 
-    # Split the data into training and validation sets (not really needed here, but good practice)
     train_data, _ = train_test_split(tagged_data, test_size=0.2, random_state=42)
 
-    # Train the Doc2Vec model
     model = Doc2Vec(vector_size=600, window=5, min_count=2, workers=4, epochs=40)
     model.build_vocab(train_data)
     model.train(train_data, total_examples=model.corpus_count, epochs=model.epochs)
 
-    # Vectorize the processed texts using the trained model
     doc_vectors = vectorize_texts(processed_texts, model)
 
     queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.forum.jsonl',
