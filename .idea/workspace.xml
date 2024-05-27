@@ -4,30 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;oj&quot;">
-      <change afterPath="$PROJECT_DIR$/badWordEmbedding/WORD_EMBEDDING_MODEL.py" afterDir="false" />
+    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;Word Embedding&quot;">
+      <change afterPath="$PROJECT_DIR$/Interface/Interface.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/R/Antiq.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/اا/AA.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/اا/Load.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/اا/TF.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/NewMap.py" beforeDir="false" afterPath="$PROJECT_DIR$/First/NewMap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/QueryProcess.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/Tf-Word2Vec.py" beforeDir="false" afterPath="$PROJECT_DIR$/badWordEmbedding/Tf-Word2Vec.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/Word2Vec.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/gensim00.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/تت.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/Doc2VecSimilarity.py" beforeDir="false" afterPath="$PROJECT_DIR$/badWordEmbedding/Doc2VecSimilarity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/MAP.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/MAP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/QuerySearchGensim.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdditionalREq/QueryRefinment.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdditionalREq/QueryRefinment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdditionalREq/Query_Suggestion.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdditionalREq/Query_Suggestion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/AvgMAP.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dov2VecModel/AvgMAP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/TextProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/First/TextProcessing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/R/SearchDocunent.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/SearchDocunent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/TextProcessor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/Word_EMBEDDING_MODEL.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/count.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/doc2vec.py" beforeDir="false" afterPath="$PROJECT_DIR$/badWordEmbedding/doc2vec.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/TF-IDF.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/TF-IDF.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/R/oj.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/oj.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/queryText.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/queryText.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/ل.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,15 +48,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/sayas/PycharmProjects/IR/R",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sayas/PycharmProjects/IR/R&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\sayas\PycharmProjects\IR\R" />
@@ -71,10 +64,11 @@
       <recent name="C:\Users\sayas\PycharmProjects\IR" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\sayas\PycharmProjects\IR" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR\badWordEmbedding" />
       <recent name="C:\Users\sayas\PycharmProjects\IR\First" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR\Dov2VecModel" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR" />
       <recent name="C:\Users\sayas\PycharmProjects\IR\R" />
-      <recent name="C:\Users\sayas\PycharmProjects\IR\Elevent" />
     </key>
   </component>
   <component name="RunManager">
@@ -301,7 +295,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716587966143</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="&quot;Word Embedding&quot;">
+      <option name="closed" value="true" />
+      <created>1716589399685</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1716589399685</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -329,6 +331,7 @@
     <MESSAGE value="&quot;Doc2Vec&quot;" />
     <MESSAGE value="&quot;Refinment&quot;" />
     <MESSAGE value="&quot;oj&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;oj&quot;" />
+    <MESSAGE value="&quot;Word Embedding&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Word Embedding&quot;" />
   </component>
 </project>

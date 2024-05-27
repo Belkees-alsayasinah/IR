@@ -5,15 +5,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 import numpy as np
 import sys
-
-from textblob import TextBlob
-
 from First.TextProcessing import TextProcessor, process_text
 
 sys.path.append('.')
 
 
-def calculate_precision_recall(y_true, y_pred, threshold=0.6):
+def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     y_pred_binary = (y_pred >= threshold).astype(int)
     precision = precision_score(y_true, y_pred_binary, average='micro')
     recall = recall_score(y_true, y_pred_binary, average='micro')
@@ -66,10 +63,6 @@ def clean_text(text, words_to_remove):
     return cleaned_text
 
 
-def context_aware_spelling_correction(text):
-    return str(TextBlob(text).correct())
-
-
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
@@ -83,7 +76,7 @@ def process_texts(texts, processor):
 
 
 def vectorize_texts(texts, processor):
-    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor), max_df=0.5, min_df=1)
+    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor))
     try:
         tfidf_matrix = vectorizer.fit_transform(texts)
     except ValueError as e:
@@ -110,7 +103,7 @@ if __name__ == '__main__':
     print("dataset_path")
     processor = TextProcessor()
 
-    dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv'
+    dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\try.tsv'
     data = load_dataset(dataset_path)
     data.dropna(subset=['text'], inplace=True)
     print("dataset_path")
@@ -127,7 +120,10 @@ if __name__ == '__main__':
         sys.exit(1)
 
     tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
-    queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl']
+
+    queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.forum.jsonl',
+                     r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl'
+                     ]
     queries = load_queries(queries_paths)
 
     all_precisions = []
@@ -138,34 +134,45 @@ if __name__ == '__main__':
         if 'query' in query:
             processed_query = process_text(query['query'], processor)
 
-            # processed_query = context_aware_spelling_correction(processed_query)
-
             top_documents, cosine_similarities = get_documents_for_query(processed_query, tfidf_matrix, processor,
                                                                          vectorizer, data)
 
             relevance = np.zeros(len(data))
+            relevant_docs_found = False  # Flag to check if relevant documents were found for this query
             for pid in query.get('answer_pids', []):
-                relevance[np.where(data['pid'] == pid)[0]] = 1
+                # Check if the pid exists in the data, otherwise ignore it
+                if pid in data['pid'].values:
+                    relevant_docs_found = True
+                    relevance[np.where(data['pid'] == pid)[0]] = 1
 
-            y_true = relevance[top_documents.index]
+            # Proceed with performance evaluation only if relevant documents were found
+            if relevant_docs_found:
+                # Check if the top_documents indices are within the range of data indices
+                valid_indices = top_documents.index[top_documents.index < len(data)]
+                if valid_indices.size > 0:
+                    y_true = relevance[np.asarray(valid_indices).astype(int)]
+                    y_pred = cosine_similarities
 
-            y_pred = cosine_similarities
-            if y_true.sum() == 0:
-                print(f"No relevant documents for query ID: {query.get('qid', 'N/A')}")
-                continue
+                    precision, recall = calculate_precision_recall(y_true, y_pred)
+                    all_precisions.append(precision)
+                    all_recalls.append(recall)
 
-            precision, recall = calculate_precision_recall(y_true, y_pred)
-            all_precisions.append(precision)
-            all_recalls.append(recall)
+                    map_score = calculate_map_score(y_true, y_pred)
+                    all_map_scores.append(map_score)
 
-            map_score = calculate_map_score(y_true, y_pred)
-            all_map_scores.append(map_score)
+                    print(
+                        f"Query ID: {query.get('qid', 'N/A')}, Precision: {precision}, Recall: {recall}, MAP Score: {map_score}")
+                else:
+                    print(f"No relevant documents found within the valid range for query ID: {query.get('qid', 'N/A')}")
+            else:
+                print(f"No relevant documents found for query ID: {query.get('qid', 'N/A')}")
 
-            print(
-                f"Query ID: {query.get('qid', 'N/A')}, Precision: {precision}, Recall: {recall}, MAP Score: {map_score}")
+    # Calculate average performance metrics only if there were relevant documents found
+    if all_precisions and all_recalls and all_map_scores:
+        avg_precision = np.nanmean(all_precisions)
+        avg_recall = np.nanmean(all_recalls)
+        avg_map_score = np.nanmean(all_map_scores)
 
-    avg_precision = np.mean(all_precisions)
-    avg_recall = np.mean(all_recalls)
-    avg_map_score = np.mean(all_map_scores)
-
-    print(f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}")
+        print(f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}")
+    else:
+        print("No relevant documents found for any query.")

@@ -1,3 +1,6 @@
+# Import necessary libraries and modules
+import pickle
+from os import name
 import pandas as pd
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -5,31 +8,33 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 import numpy as np
 import sys
-
-from textblob import TextBlob
-
+import re
 from First.TextProcessing import TextProcessor, process_text
 
 sys.path.append('.')
 
 
-def calculate_precision_recall(y_true, y_pred, threshold=0.6):
+# Define precision and recall calculation function
+def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     y_pred_binary = (y_pred >= threshold).astype(int)
     precision = precision_score(y_true, y_pred_binary, average='micro')
     recall = recall_score(y_true, y_pred_binary, average='micro')
     return precision, recall
 
 
+# Define MAP score calculation function
 def calculate_map_score(y_true, y_pred):
     return average_precision_score(y_true, y_pred, average='micro')
 
 
+# Save dataset function
 def save_dataset(docs, file_path):
     with open(file_path, 'w', encoding='utf-8') as file:
         for pid, text in enumerate(docs, start=1):
             file.write(f"{pid}\t{text}\n")
 
 
+# Load dataset function
 def load_dataset(file_path):
     try:
         data = pd.read_csv(file_path, delimiter='\t', header=None, names=['pid', 'text'])
@@ -39,6 +44,7 @@ def load_dataset(file_path):
     return data
 
 
+# Load queries function
 def load_queries(queries_paths):
     queries = []
     for file_path in queries_paths:
@@ -59,6 +65,7 @@ with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\de
     words_to_remove = file.read().splitlines()
 
 
+# Clean text function
 def clean_text(text, words_to_remove):
     words = text.split()
     cleaned_words = [word for word in words if word.lower() not in words_to_remove]
@@ -66,38 +73,41 @@ def clean_text(text, words_to_remove):
     return cleaned_text
 
 
-def context_aware_spelling_correction(text):
-    return str(TextBlob(text).correct())
-
-
+# Process texts function
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
-        if isinstance(text, str):  # التحقق مما إذا كانت القيمة نصية
-            print("text: " + text)
-            processed_text = process_text(text, processor)
-            processed_texts.append(processed_text)
-        else:
-            print("Skipping non-string value:", text)
+        print("text: " + text)
+        processed_text = process_text(text, processor)
+        processed_texts.append(processed_text)
     return processed_texts
 
 
-def vectorize_texts(texts, processor):
-    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor), max_df=0.5, min_df=1)
+def save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, matrix_file_path, vectorizer_file_path):
+    # Save the TF-IDF matrix
+    with open(matrix_file_path, 'wb') as file:
+        pickle.dump(tfidf_matrix, file)
+
+    # Save the vectorizer
+    with open(vectorizer_file_path, 'wb') as file:
+        pickle.dump(vectorizer, file)
+
+
+def vectorize_texts(texts):
+    vectorizer = TfidfVectorizer()
     try:
         tfidf_matrix = vectorizer.fit_transform(texts)
     except ValueError as e:
         print(f"Error during TF-IDF vectorization: {e}")
         print(f"Sample texts: {texts[:5]}")
         sys.exit(1)
-
     return tfidf_matrix, vectorizer
 
 
 # Get documents for query function
 def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
-    processed_query = process_text(query, processor)
-    query_vector = vectorizer.transform([processed_query])
+    rocessed_query = process_text(query, processor)
+    query_vector = vectorizer.transform([rocessed_query])
     cosine_similarities = cosine_similarity(tfidf_matrix, query_vector).flatten()
     n = 10
     top_documents_indices = cosine_similarities.argsort()[-n:][::-1]
@@ -112,7 +122,6 @@ if __name__ == '__main__':
 
     dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv'
     data = load_dataset(dataset_path)
-    data.dropna(subset=['text'], inplace=True)
     print("dataset_path")
 
     print("Columns in the dataset:", data.columns)
@@ -122,12 +131,21 @@ if __name__ == '__main__':
     print("start")
     processed_texts = process_texts(data['text'], processor)
 
+    # Ensure processed_texts is not empty
     if not processed_texts:
         print("All documents are empty after preprocessing.")
         sys.exit(1)
 
-    tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
-    queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl']
+    #save_dataset(processed_texts, "cleaned_texts.txt")
+
+    # Paths to save/load the TF-IDF matrix and vectorizer
+    tfidf_matrix_file_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl'
+    vectorizer_file_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl'
+    tfidf_matrix, vectorizer = vectorize_texts(processed_texts)
+    save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, tfidf_matrix_file_path, vectorizer_file_path)
+
+    queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.forum.jsonl',
+                     r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl']
     queries = load_queries(queries_paths)
 
     all_precisions = []
@@ -136,10 +154,9 @@ if __name__ == '__main__':
 
     for query in queries:
         if 'query' in query:
-            processed_query = process_text(query['query'], processor)
-
-            # processed_query = context_aware_spelling_correction(processed_query)
-
+            processed_query = process_texts([query['query']], processor)[0]
+            # cleaned_query = clean_text(processed_query, words_to_remove)
+            print("Processed Query:", processed_query)
             top_documents, cosine_similarities = get_documents_for_query(processed_query, tfidf_matrix, processor,
                                                                          vectorizer, data)
 
@@ -148,8 +165,8 @@ if __name__ == '__main__':
                 relevance[np.where(data['pid'] == pid)[0]] = 1
 
             y_true = relevance[top_documents.index]
-
             y_pred = cosine_similarities
+
             if y_true.sum() == 0:
                 print(f"No relevant documents for query ID: {query.get('qid', 'N/A')}")
                 continue
@@ -164,6 +181,7 @@ if __name__ == '__main__':
             print(
                 f"Query ID: {query.get('qid', 'N/A')}, Precision: {precision}, Recall: {recall}, MAP Score: {map_score}")
 
+    print(queries[:5])
     avg_precision = np.mean(all_precisions)
     avg_recall = np.mean(all_recalls)
     avg_map_score = np.mean(all_map_scores)

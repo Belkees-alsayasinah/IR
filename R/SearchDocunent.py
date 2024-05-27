@@ -1,31 +1,24 @@
 import joblib
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
-
 from First.TextProcessing import TextProcessor, process_text
 
 text_processor = TextProcessor()
 
-def process_query(query_text, processor):
-    return process_text(query_text, processor)
+
+def process_query(query_text, processor): return process_text(query_text, processor)
 
 
-
-corpus_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv"
+corpus_file = r"C:\Users\sayas.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv"
 df = pd.read_csv(corpus_file, delimiter='\t', header=None, names=['id', 'text'])
-
 
 df = df.dropna(subset=['text'])
 
+tfidf_matrix_file = r"C:\Users\sayas.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl"
+with open(tfidf_matrix_file, 'rb') as file: tfidf_matrix = joblib.load(file)
 
-tfidf_matrix_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\all term\tfidf_matrix1.pkl"
-with open(tfidf_matrix_file, 'rb') as file:
-    tfidf_matrix = joblib.load(file)
-
-
-vectorizer_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\all term\tfidf_vectorizer1.pkl"
-with open(vectorizer_file, 'rb') as file:
-    vectorizer = joblib.load(file)
+vectorizer_file = r"C:\Users\sayas.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl"
+with open(vectorizer_file, 'rb') as file: vectorizer = joblib.load(file)
 
 n = 10
 

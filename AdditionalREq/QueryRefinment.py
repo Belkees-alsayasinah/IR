@@ -1,38 +1,45 @@
+import nltk
+from nltk.corpus import wordnet
+import json
 
-import csv
 class Query_Refinement:
     def refine_query(self, query):
-        import nltk
-        from nltk.corpus import wordnet
-
-        # tokenize the query
+        # تجزئة الاستعلام إلى كلمات
         query_tokens = nltk.word_tokenize(query)
 
-        # create a set to store the refined query
+        # إنشاء مجموعة لتخزين الاستعلام المحسن
         refined_query = set(query_tokens)
 
-        # loop through each token and add related words
+        # تكرار على كل كلمة وإضافة الكلمات ذات الصلة
         for token in query_tokens:
-            # find synonyms and related words for the token
+            # البحث عن المرادفات والكلمات ذات الصلة بالكلمة
             synsets = wordnet.synsets(token)
             for synset in synsets:
                 for lemma in synset.lemmas():
-                    # add the lemma to the refined query if it's not the same as the original token
+                    # إضافة المرادف إلى الاستعلام المحسن إذا لم يكن هو نفس الكلمة الأصلية
                     if lemma.name() != token:
                         refined_query.add(lemma.name())
 
-        # return the refined query as a string
+        # إعادة الاستعلام المحسن كسلسلة نصية
         return " ".join(refined_query)
 
     def refine_queries_file(self, input_file, output_file):
-        # open the input and output files
-        with open(input_file, 'r', newline='') as f_in, open(output_file, 'w', newline='') as f_out:
-            reader = csv.reader(f_in)
-            writer = csv.writer(f_out)
+        # فتح ملف الإدخال وقراءة البيانات
+        with open(input_file, 'r') as f_in:
+            queries = [json.loads(line) for line in f_in]
 
-            # loop through each row in the input file
-            for id_left, text_left in reader:
-                # apply query refinement to the text_left column
-                refined_query = self.refine_query(text_left)
-                # write the id_left and refined query to the output file
-                writer.writerow([id_left, refined_query])
+        # تكرار على كل استعلام وتحسينه
+        for query in queries:
+            refined_query = self.refine_query(query['query'])
+            query['query'] = refined_query
+
+        # كتابة الاستعلامات المحسنة إلى ملف الإخراج
+        with open(output_file, 'w') as f_out:
+            for query in queries:
+                f_out.write(json.dumps(query) + '\n')
+
+
+# مثال على الاستخدام
+refine = Query_Refinement()
+refine.refine_queries_file(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl",
+                           r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.result.jsonl")

@@ -3,7 +3,7 @@ import logging
 
 import nltk
 from nltk import PorterStemmer, WordNetLemmatizer
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords, wordnet
 from spellchecker import SpellChecker
 import inflect
 import re
@@ -48,14 +48,22 @@ class TextProcessor:
         words = self.tokenizer.tokenize(text)
         converted_words = []
         for word in words:
-            if word.isdigit():
-                try:
-                    converted_word = self.inflect_engine.number_to_words(word)
-                    converted_words.append(converted_word)
-                except inflect.NumOutOfRangeError:
-                    converted_words.append("[Number Out of Range]")
-            else:
+            # التحقق مما إذا كان النص يمثل رقمًا
+            if word.replace('.', '', 1).isdigit():  # إزالة النقطة العشرية قبل فحص الرقم
                 converted_words.append(word)
+            else:
+                if word.isdigit():
+                    try:
+                        num = int(word)
+                        if num <= 999999999999999:  # تحقق من طول الرقم
+                            converted_word = self.inflect_engine.number_to_words(word)
+                            converted_words.append(converted_word)
+                        else:
+                            converted_words.append("[Number Out of Range]")
+                    except inflect.NumOutOfRangeError:
+                        converted_words.append("[Number Out of Range]")
+                else:
+                    converted_words.append(word)
         return ' '.join(converted_words)
 
     def remove_html_tags(self, text):
@@ -138,27 +146,36 @@ class TextProcessor:
                 negated_text.append(word)
         return ' '.join(negated_text)
 
+    def remove_non_english_words(self, text):
+        words = self.tokenizer.tokenize(text)
+        english_words = [word for word in words if wordnet.synsets(word)]
+        return ' '.join(english_words)
+
 
 def process_text(text, processor):
-    text = processor.number_to_words(text)
+    if text is None:
+        return text
+    text = processor.cleaned_text(text)
     text = processor.normalization_example(text)
     text = processor.stemming_example(text)
     text = processor.lemmatization_example(text)
     text = processor.remove_stopwords(text)
+    text = processor.number_to_words(text)
+    text = processor.remove_punctuation(text)
     text = processor.clean_text(text, words_to_remove)
     text = processor.expand_contractions(text)
+    # text = processor.spelling_correction(text)
     text = processor.normalize_unicode(text)
-    text = processor.cleaned_text(text)
-    text = processor.remove_punctuation(text)
     text = processor.handle_negations(text)
     text = processor.remove_urls(text)
+    text = processor.remove_non_english_words(text)
     return text
 
 
 def main():
-    with open(r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\try.tsv', 'r',
+    with open(r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv', 'r',
               encoding='utf-8') as input_file, open(
-        r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\try1.tsv', 'w',
+        r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\result.tsv', 'w',
         encoding='utf-8') as output_file:
         reader = csv.reader(input_file, delimiter='\t')
         writer = csv.writer(output_file, delimiter='\t')
@@ -168,7 +185,7 @@ def main():
         for row in reader:
             if len(row) >= 2:
                 text = row[1]
-                processed_text = process_text(text, text_processor, [])
+                processed_text = process_text(text, text_processor)
                 writer.writerow([row[0], processed_text])
                 print(processed_text + '\n')
             else:
@@ -177,3 +194,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+# wordnet

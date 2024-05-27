@@ -5,26 +5,39 @@ import numpy as np
 import sys
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from nltk.tokenize import word_tokenize
+from textblob import TextBlob
+
 from First.TextProcessing import TextProcessor, process_text
+from sklearn.metrics import f1_score
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import precision_recall_curve
+from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, precision_recall_curve, \
+    confusion_matrix, average_precision_score
+import matplotlib.pyplot as plt
+import numpy as np
 
 sys.path.append('.')
 
+
 # Define precision and recall calculation function
-def calculate_precision_recall(y_true, y_pred, threshold=0.5):
+def calculate_precision_recall(y_true, y_pred, threshold=0.0):
     y_pred_binary = (np.array(y_pred) >= threshold).astype(int)
     precision = precision_score(y_true, y_pred_binary, average='micro')
     recall = recall_score(y_true, y_pred_binary, average='micro')
     return precision, recall
 
+
 # Define MAP score calculation function
 def calculate_map_score(y_true, y_pred):
     return average_precision_score(y_true, y_pred, average='micro')
+
 
 # Save dataset function
 def save_dataset(docs, file_path):
     with open(file_path, 'w', encoding='utf-8') as file:
         for pid, text in enumerate(docs, start=1):
             file.write(f"{pid}\t{text}\n")
+
 
 # Load dataset function
 def load_dataset(file_path):
@@ -34,6 +47,7 @@ def load_dataset(file_path):
         print(f"Error reading the dataset file: {e}")
         sys.exit(1)
     return data
+
 
 # Load queries function
 def load_queries(queries_paths):
@@ -49,9 +63,12 @@ def load_queries(queries_paths):
                     print(f"Skipping invalid line in {file_path}: {line}")
     return queries
 
+
 # Load words to remove
-with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r', encoding='utf-8') as file:
+with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
+          encoding='utf-8') as file:
     words_to_remove = file.read().splitlines()
+
 
 # Clean text function
 def clean_text(text, words_to_remove):
@@ -59,6 +76,7 @@ def clean_text(text, words_to_remove):
     cleaned_words = [word for word in words if word.lower() not in words_to_remove]
     cleaned_text = ' '.join(cleaned_words)
     return cleaned_text
+
 
 # Process texts function
 def process_texts(texts, processor):
@@ -68,14 +86,19 @@ def process_texts(texts, processor):
         processed_texts.append(processed_text)
     return processed_texts
 
+
 # Train Doc2Vec model function
 def train_doc2vec_model(data, processor):
-    tagged_data = [TaggedDocument(words=word_tokenize(process_text(row['text'], processor).lower()), tags=[str(row['pid'])]) for index, row in data.iterrows()]
-    model = Doc2Vec(vector_size=300, window=5, workers=4, min_count=2, epochs=80)
+    tagged_data = [
+        TaggedDocument(words=word_tokenize(process_text(row['text'], processor).lower()), tags=[str(row['pid'])]) for
+        index, row in data.iterrows()]
+    model = Doc2Vec(vector_size=300, window=5, workers=4, min_count=20, epochs=80)
     model.build_vocab(tagged_data)
     model.train(tagged_data, total_examples=model.corpus_count, epochs=model.epochs)
     return model
 
+def context_aware_spelling_correction(self, text):
+        return str(TextBlob(text).correct())
 # Get documents for query function using Doc2Vec
 def get_documents_for_query(query, model, processor, data):
     processed_query = process_text(query, processor)
@@ -86,11 +109,12 @@ def get_documents_for_query(query, model, processor, data):
     cosine_similarities = [sim for doc_id, sim in similar_docs]
     return top_documents, cosine_similarities
 
+
 # Main execution block
 if __name__ == '__main__':
     processor = TextProcessor()
 
-    dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\try.tsv'
+    dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv'
     data = load_dataset(dataset_path)
 
     if 'text' not in data.columns:
@@ -106,8 +130,8 @@ if __name__ == '__main__':
     model.save("d2v.model")
     model = Doc2Vec.load("d2v.model")
 
-    queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.forum.jsonl',
-                     r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl']
+    queries_paths = [
+        r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl']
     queries = load_queries(queries_paths)
 
     all_precisions = []
@@ -117,7 +141,6 @@ if __name__ == '__main__':
     for query in queries:
         if 'query' in query:
             top_documents, cosine_similarities = get_documents_for_query(query['query'], model, processor, data)
-
             relevance = np.zeros(len(data))
             for pid in query.get('answer_pids', []):
                 relevance[np.where(data['pid'] == pid)[0]] = 1
@@ -136,7 +159,8 @@ if __name__ == '__main__':
             map_score = calculate_map_score(y_true, y_pred)
             all_map_scores.append(map_score)
 
-            print(f"Query ID: {query.get('qid', 'N/A')}, Precision: {precision}, Recall: {recall}, MAP Score: {map_score}")
+            print(
+                f"Query ID: {query.get('qid', 'N/A')}, Precision: {precision}, Recall: {recall}, MAP Score: {map_score}")
 
     avg_precision = np.mean(all_precisions)
     avg_recall = np.mean(all_recalls)
