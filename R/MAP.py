@@ -1,5 +1,5 @@
 import json
-from R.SearchDocunent import search_documents
+from SearchDocunent import search_documents
 
 
 def precision_at_k(relevant_docs, retrieved_docs, k):

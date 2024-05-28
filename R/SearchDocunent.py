@@ -1,7 +1,7 @@
 import joblib
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
-from First.TextProcessing import TextProcessor, process_text
+from TextProcessing.TextProcessing import TextProcessor, process_text
 
 text_processor = TextProcessor()
 

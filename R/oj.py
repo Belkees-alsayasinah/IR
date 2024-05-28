@@ -8,7 +8,7 @@ import sys
 
 from textblob import TextBlob
 
-from First.TextProcessing import TextProcessor, process_text
+from TextProcessing.TextProcessing import TextProcessor, process_text
 
 sys.path.append('.')
 

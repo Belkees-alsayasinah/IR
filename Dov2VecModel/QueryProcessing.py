@@ -1,8 +1,6 @@
-import gensim
-import nltk
-from gensim.models.doc2vec import Doc2Vec, TaggedDocument
+from gensim.models.doc2vec import Doc2Vec
 from nltk.tokenize import word_tokenize
-from First.TextProcessing import TextProcessor, process_text
+from TextProcessing.TextProcessing import TextProcessor, process_text
 
 class Doc2VecModel:
     def __init__(self, model_path):
@@ -15,10 +13,8 @@ class Doc2VecModel:
         return similar_docs
 
 if __name__ == "__main__":
-    # Path to the file containing the documents
     file_path = "C:/Users/sayas/.ir_datasets/lotte/lotte_extracted/lotte/lifestyle/dev/try.tsv"
 
-    # Read the documents from the file
     with open(file_path, "r", encoding="utf-8") as file:
         data = file.readlines()
 

@@ -4,23 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;Word Embedding&quot;">
-      <change afterPath="$PROJECT_DIR$/Interface/Interface.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/R/Antiq.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/اا/AA.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/اا/Load.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/اا/TF.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;CLUSTERING&quot;">
+      <change afterPath="$PROJECT_DIR$/Interfacr/Interface.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdditionalREq/QueryRefinment.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdditionalREq/QueryRefinment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdditionalREq/Query_Suggestion.py" beforeDir="false" afterPath="$PROJECT_DIR$/AdditionalREq/Query_Suggestion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdditionalREq/QueryRefinment.py" beforeDir="false" afterPath="$PROJECT_DIR$/QueryRefinment/QueryRefinment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdditionalREq/Query_Suggestion.py" beforeDir="false" afterPath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dov2VecModel/AvgMAP.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dov2VecModel/AvgMAP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/First/TextProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/First/TextProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/SearchDocunent.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/SearchDocunent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/TF-IDF.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/TF-IDF.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/oj.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/oj.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/NewMap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/First/TextProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/TextProcessing/TextProcessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interface/Interface.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/Antiq.py" beforeDir="false" afterPath="$PROJECT_DIR$/TF-IDFModel/Antiq.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/MAP.py" beforeDir="false" afterPath="$PROJECT_DIR$/TF-IDFModel/MAP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/SearchDocunent.py" beforeDir="false" afterPath="$PROJECT_DIR$/TF-IDFModel/SearchDocunent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/TF-IDF.py" beforeDir="false" afterPath="$PROJECT_DIR$/TF-IDFModel/TF-IDF.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/oj.py" beforeDir="false" afterPath="$PROJECT_DIR$/TF-IDFModel/oj.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/queryText.py" beforeDir="false" afterPath="$PROJECT_DIR$/TF-IDFModel/queryText.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/badWordEmbedding/Doc2VecSimilarity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/badWordEmbedding/Tf-Word2Vec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/badWordEmbedding/WORD_EMBEDDING_MODEL.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/badWordEmbedding/doc2vec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cluster-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Interfacr/cluster-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/اا/AA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/AA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/اا/DOCUMENT_CLUSTERING.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/DOCUMENT_CLUSTERING.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/اا/Load.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/Load.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/اا/TF.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/TF.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,7 +314,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716589399685</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="&quot;CLUSTERING&quot;">
+      <option name="closed" value="true" />
+      <created>1716821036213</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1716821036213</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -332,6 +351,7 @@
     <MESSAGE value="&quot;Refinment&quot;" />
     <MESSAGE value="&quot;oj&quot;" />
     <MESSAGE value="&quot;Word Embedding&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Word Embedding&quot;" />
+    <MESSAGE value="&quot;CLUSTERING&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;CLUSTERING&quot;" />
   </component>
 </project>

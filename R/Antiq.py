@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 import numpy as np
 import sys
-from First.TextProcessing import TextProcessor, process_text
+from TextProcessing.TextProcessing import TextProcessor, process_text
 
 sys.path.append('.')
 

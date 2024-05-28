@@ -64,12 +64,12 @@ if __name__ == "__main__":
     df, documents = load_data(file_path)
     print(f"Number of documents after dropping NaNs: {len(documents)}")
 
-    # TF-IDF Vectorization
+    # R Vectorization
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(documents)
-    print(f"Shape of TF-IDF matrix: {tfidf_matrix.shape}")
+    print(f"Shape of R matrix: {tfidf_matrix.shape}")
 
-    # Save the vectorizer and TF-IDF matrix
+    # Save the vectorizer and R matrix
     vectorizer_file = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer1.pkl'
     with open(vectorizer_file, 'wb') as file:
         joblib.dump(vectorizer, file)
@@ -78,9 +78,9 @@ if __name__ == "__main__":
     with open(tfidf_matrix_file, 'wb') as file:
         joblib.dump(tfidf_matrix, file)
 
-    # Ensure the number of documents matches the number of rows in the TF-IDF matrix
+    # Ensure the number of documents matches the number of rows in the R matrix
     if len(documents) != tfidf_matrix.shape[0]:
-        print("Error: The number of documents does not match the number of rows in the TF-IDF matrix.")
+        print("Error: The number of documents does not match the number of rows in the R matrix.")
     else:
         # Apply K-Means clustering
         kmeans, labels = apply_kmeans_clustering(tfidf_matrix)

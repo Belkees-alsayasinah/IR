@@ -168,7 +168,7 @@ def process_text(text, processor):
     text = processor.normalize_unicode(text)
     text = processor.handle_negations(text)
     text = processor.remove_urls(text)
-    text = processor.remove_non_english_words(text)
+    #text = processor.remove_non_english_words(text)
     return text
 
 

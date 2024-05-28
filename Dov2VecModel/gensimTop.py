@@ -1,6 +1,6 @@
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from nltk.tokenize import word_tokenize
-from First.TextProcessing import TextProcessor, process_text
+from TextProcessing.TextProcessing import TextProcessor, process_text
 
 # نفسا أفضل نتيجة بس هون عم درب الموديل وأحفظ بس
 file_path = "C:/Users/sayas/.ir_datasets/lotte/lotte_extracted/lotte/lifestyle/dev/try.tsv"

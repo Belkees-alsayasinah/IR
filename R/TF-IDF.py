@@ -14,7 +14,7 @@ print(f"Number of documents after dropping NaNs: {len(df)}")
 documents = df['text'].tolist()
 print(f"Number of documents: {len(documents)}")
 
-# TF-IDF Vectorization
+# R Vectorization
 vectorizer = TfidfVectorizer()
 tfidf_matrix = vectorizer.fit_transform(documents)
 print(f"Shape of TF-IDF matrix: {tfidf_matrix.shape}")
@@ -25,7 +25,7 @@ with open(vectorizer_file, 'wb') as file:
     joblib.dump(vectorizer, file)
 print(f"TF-IDF vectorizer saved to {vectorizer_file}")
 
-# Save the TF-IDF matrix
+# Save the R matrix
 output_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl"
 with open(output_file, 'wb') as file:
     joblib.dump(tfidf_matrix, file)

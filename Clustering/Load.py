@@ -1,6 +1,4 @@
-# Import necessary libraries and modules
 import pickle
-from os import name
 import pandas as pd
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -8,13 +6,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 import numpy as np
 import sys
-import re
-from First.TextProcessing import TextProcessor, process_text
+from TextProcessing.TextProcessing import TextProcessor, process_text
 
 sys.path.append('.')
 
 
-# Define precision and recall calculation function
 def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     y_pred_binary = (y_pred >= threshold).astype(int)
     precision = precision_score(y_true, y_pred_binary, average='micro')
@@ -22,7 +18,6 @@ def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     return precision, recall
 
 
-# Define MAP score calculation function
 def calculate_map_score(y_true, y_pred):
     return average_precision_score(y_true, y_pred, average='micro')
 
@@ -72,8 +67,6 @@ def clean_text(text, words_to_remove):
     cleaned_text = ' '.join(cleaned_words)
     return cleaned_text
 
-
-# Process texts function
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
@@ -84,11 +77,10 @@ def process_texts(texts, processor):
 
 
 def save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, matrix_file_path, vectorizer_file_path):
-    # Save the TF-IDF matrix
+    # Save the R matrix
     with open(matrix_file_path, 'wb') as file:
         pickle.dump(tfidf_matrix, file)
 
-    # Save the vectorizer
     with open(vectorizer_file_path, 'wb') as file:
         pickle.dump(vectorizer, file)
 
@@ -136,9 +128,9 @@ if __name__ == '__main__':
         print("All documents are empty after preprocessing.")
         sys.exit(1)
 
-    #save_dataset(processed_texts, "cleaned_texts.txt")
+    # save_dataset(processed_texts, "cleaned_texts.txt")
 
-    # Paths to save/load the TF-IDF matrix and vectorizer
+    # Paths to save/load the R matrix and vectorizer
     tfidf_matrix_file_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl'
     vectorizer_file_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl'
     tfidf_matrix, vectorizer = vectorize_texts(processed_texts)

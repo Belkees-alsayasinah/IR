@@ -7,7 +7,7 @@ from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from nltk.tokenize import word_tokenize
 from textblob import TextBlob
 
-from First.TextProcessing import TextProcessor, process_text
+from TextProcessing.TextProcessing import TextProcessor, process_text
 from sklearn.metrics import f1_score
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import precision_recall_curve
@@ -19,7 +19,6 @@ import numpy as np
 sys.path.append('.')
 
 
-# Define precision and recall calculation function
 def calculate_precision_recall(y_true, y_pred, threshold=0.0):
     y_pred_binary = (np.array(y_pred) >= threshold).astype(int)
     precision = precision_score(y_true, y_pred_binary, average='micro')
@@ -27,7 +26,6 @@ def calculate_precision_recall(y_true, y_pred, threshold=0.0):
     return precision, recall
 
 
-# Define MAP score calculation function
 def calculate_map_score(y_true, y_pred):
     return average_precision_score(y_true, y_pred, average='micro')
 

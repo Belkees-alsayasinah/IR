@@ -19,36 +19,36 @@ def load_and_process_data(file_path):
 df, documents = load_and_process_data(corpus_file)
 print(f"Number of documents after dropping NaNs: {len(documents)}")
 
-# TF-IDF Vectorization
+# R Vectorization
 vectorizer = TfidfVectorizer()
 tfidf_matrix = vectorizer.fit_transform(documents)
-print(f"Shape of TF-IDF matrix: {tfidf_matrix.shape}")
+print(f"Shape of R matrix: {tfidf_matrix.shape}")
 
-# Save the vectorizer and TF-IDF matrix
+# Save the vectorizer and R matrix
 with open(vectorizer_file, 'wb') as file:
     joblib.dump(vectorizer, file)
-print(f"TF-IDF vectorizer saved to {vectorizer_file}")
+print(f"R vectorizer saved to {vectorizer_file}")
 
 with open(tfidf_matrix_file, 'wb') as file:
     joblib.dump(tfidf_matrix, file)
-print(f"TF-IDF matrix saved to {tfidf_matrix_file}")
+print(f"R matrix saved to {tfidf_matrix_file}")
 
 
-# Load the vectorizer and TF-IDF matrix
+# Load the vectorizer and R matrix
 with open(vectorizer_file, 'rb') as file:
     vectorizer = joblib.load(file)
 
 with open(tfidf_matrix_file, 'rb') as file:
     tfidf_matrix = joblib.load(file)
 
-# Ensure the TF-IDF matrix is in CSR format
+# Ensure the R matrix is in CSR format
 if not sp.issparse(tfidf_matrix):
     tfidf_matrix = sp.csr_matrix(tfidf_matrix)
 
-print(f"Shape of TF-IDF matrix: {tfidf_matrix.shape}")
+print(f"Shape of R matrix: {tfidf_matrix.shape}")
 
-# Ensure the number of documents matches the TF-IDF matrix
+# Ensure the number of documents matches the R matrix
 if len(documents) != tfidf_matrix.shape[0]:
-    print("Error: The number of documents does not match the number of rows in the TF-IDF matrix.")
+    print("Error: The number of documents does not match the number of rows in the R matrix.")
 else:
     print("Data consistency check passed.")
