@@ -46,6 +46,13 @@
             <label for="queryInput">Enter your query:</label>
             <input type="text" class="form-control" id="queryInput" name="query">
         </div>
+        <div class="form-group">
+            <label for="datasetSelect">Select Dataset:</label><br>
+            <input type="radio" id="dataset1" name="dataset" value="dataset1" checked>
+            <label for="dataset1">Dataset 1</label><br>
+            <input type="radio" id="dataset2" name="dataset" value="dataset2">
+            <label for="dataset2">Dataset 2</label>
+        </div>
         <button type="search" class="btn btn-custom">Search</button>
     </form>
 
@@ -71,13 +78,19 @@
       // Autocomplete for query input
       $("#queryInput").autocomplete({
         source: function(request, response) {
+          var dataset = $('input[name="dataset"]:checked').val();  // Get selected dataset
           $.ajax({
             url: "/suggest-query",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ query: request.term }),
+            data: JSON.stringify({ query: request.term, dataset: dataset }),  // Include dataset in the request
             success: function(data) {
-              response(data.suggestions);
+              response(data.suggestions.map(function(suggestion) {
+                return {
+                  label: suggestion.label,
+                  value: suggestion.value
+                };
+              }));
             }
           });
         },
@@ -91,13 +104,14 @@
       $('#queryForm').on('submit', function(event) {
         event.preventDefault();
         var query = $('#queryInput').val();
-        $('#queryDisplay').text('Query: ' + query);
+        var dataset = $('input[name="dataset"]:checked').val();
+        $('#queryDisplay').text('Query: ' + query + ' (Dataset: ' + dataset + ')');
 
         $.ajax({
           url: '/query',
           type: 'POST',
-          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-          data: { query: query },
+          contentType: 'application/json',
+          data: JSON.stringify({ query: query, dataset: dataset }),
           success: function(response) {
             var resultList = $('#resultList');
             resultList.empty();

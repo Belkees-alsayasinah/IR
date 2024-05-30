@@ -175,7 +175,7 @@ def process_text(text, processor):
 def main():
     with open(r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv', 'r',
               encoding='utf-8') as input_file, open(
-        r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\result.tsv', 'w',
+        r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\result1.tsv', 'w',
         encoding='utf-8') as output_file:
         reader = csv.reader(input_file, delimiter='\t')
         writer = csv.writer(output_file, delimiter='\t')

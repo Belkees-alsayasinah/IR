@@ -67,6 +67,7 @@ def clean_text(text, words_to_remove):
     cleaned_text = ' '.join(cleaned_words)
     return cleaned_text
 
+
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
@@ -86,7 +87,7 @@ def save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, matrix_file_path,
 
 
 def vectorize_texts(texts):
-    vectorizer = TfidfVectorizer()
+    vectorizer = TfidfVectorizer(max_df=0.5, min_df=0.05)
     try:
         tfidf_matrix = vectorizer.fit_transform(texts)
     except ValueError as e:
@@ -131,8 +132,8 @@ if __name__ == '__main__':
     # save_dataset(processed_texts, "cleaned_texts.txt")
 
     # Paths to save/load the R matrix and vectorizer
-    tfidf_matrix_file_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl'
-    vectorizer_file_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl'
+    tfidf_matrix_file_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrixA.pkl'
+    vectorizer_file_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizerA.pkl'
     tfidf_matrix, vectorizer = vectorize_texts(processed_texts)
     save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, tfidf_matrix_file_path, vectorizer_file_path)
 

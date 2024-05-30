@@ -8,19 +8,17 @@ import textdistance
 import nltk
 from nltk.corpus import wordnet
 
-tfidf_matrix_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl"
+tfidf_matrix_file = r"C:\Users\sayas\.ir_datasets\antique\tfidf_matrix.pkl"
 with open(tfidf_matrix_file, 'rb') as file:
     tfidf_matrix = joblib.load(file)
 
-vectorizer_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl"
+vectorizer_file = r"C:\Users\sayas\.ir_datasets\antique\tfidf_vectorizer.pkl"
 with open(vectorizer_file, 'rb') as file:
     vectorizer = joblib.load(file)
 
 processor = TextProcessor()
-
-query_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.result.jsonl"
-search_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\spaCy\qas.search.jsonl"
-
+query_file = r"C:\Users\sayas\.ir_datasets\antique\qas.result.jsonl"
+search_file = r"C:\Users\sayas\.ir_datasets\antique\relevent_result.jsonl"
 processed_queries = []
 try:
     with open(query_file, 'r', encoding='utf-8') as f:
@@ -90,7 +88,7 @@ def refine_query(query):
     return ' '.join(refined_query)
 
 
-def suggest_similar_queries1(query, n=10, threshold=0.0):
+def suggest_similar_queries2(query, n=10, threshold=0.0):
     refined_query = refine_query(query)
     processed_query = process_text(refined_query, processor)
     query_vector = vectorizer.transform([processed_query])
@@ -106,5 +104,3 @@ def suggest_similar_queries1(query, n=10, threshold=0.0):
     similar_search_queries = [(search_queries[qid], qid) for _, qid in similar_queries if qid in search_queries]
 
     return similar_search_queries
-
-

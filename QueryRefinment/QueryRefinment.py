@@ -31,5 +31,5 @@ class Query_Refinement:
                 f_out.write(json.dumps(query) + '\n')
 
 refine = Query_Refinement()
-refine.refine_queries_file(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl",
-                           r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.result.jsonl")
+refine.refine_queries_file(r"C:\Users\sayas\.ir_datasets\antique\relevent_result.jsonl",
+                           r"C:\Users\sayas\.ir_datasets\antique\qas.result.jsonl")

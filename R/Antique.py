@@ -1,3 +1,5 @@
+import pickle
+
 import pandas as pd
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -12,19 +14,15 @@ sys.path.append('.')
 
 def calculate_precision_recall(y_true, y_pred, threshold=0.5):
     y_pred_binary = (y_pred >= threshold).astype(int)
-    precision = precision_score(y_true, y_pred_binary, average='micro')
-    recall = recall_score(y_true, y_pred_binary, average='micro')
+    precision = precision_score(y_true, y_pred_binary, average='micro', zero_division=0)
+    recall = recall_score(y_true, y_pred_binary, average='micro', zero_division=0)
     return precision, recall
 
 
 def calculate_map_score(y_true, y_pred):
+    if np.sum(y_true) == 0:
+        return 0.0
     return average_precision_score(y_true, y_pred, average='micro')
-
-
-def save_dataset(docs, file_path):
-    with open(file_path, 'w', encoding='utf-8') as file:
-        for pid, text in enumerate(docs, start=1):
-            file.write(f"{pid}\t{text}\n")
 
 
 def load_dataset(file_path):
@@ -75,8 +73,17 @@ def process_texts(texts, processor):
     return processed_texts
 
 
-def vectorize_texts(texts, processor):
-    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor))
+def save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, matrix_file_path, vectorizer_file_path):
+    # Save the R matrix
+    with open(matrix_file_path, 'wb') as file:
+        pickle.dump(tfidf_matrix, file)
+
+    with open(vectorizer_file_path, 'wb') as file:
+        pickle.dump(vectorizer, file)
+
+
+def vectorize_texts(texts):
+    vectorizer = TfidfVectorizer()
     try:
         tfidf_matrix = vectorizer.fit_transform(texts)
     except ValueError as e:
@@ -100,30 +107,30 @@ def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
 
 # Main execution block
 if __name__ == '__main__':
-    print("dataset_path")
     processor = TextProcessor()
 
-    dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\try.tsv'
+    dataset_path = r'C:\Users\sayas\.ir_datasets\antique\collection.tsv'
     data = load_dataset(dataset_path)
     data.dropna(subset=['text'], inplace=True)
-    print("dataset_path")
 
-    print("Columns in the dataset:", data.columns)
     if 'text' not in data.columns:
         print("The dataset does not contain a 'text' column.")
         sys.exit(1)
-    print("start")
+
     processed_texts = process_texts(data['text'], processor)
 
     if not processed_texts:
         print("All documents are empty after preprocessing.")
         sys.exit(1)
+        # Paths to save/load the R matrix and vectorizer
+    tfidf_matrix_file_path = r'C:\Users\sayas\.ir_datasets\antique\test\tfidf_matrixA.pkl'
+    vectorizer_file_path = r'C:\Users\sayas\.ir_datasets\antique\test\tfidf_vectorizerA.pkl'
+    tfidf_matrix, vectorizer = vectorize_texts(processed_texts)
+    save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, tfidf_matrix_file_path, vectorizer_file_path)
 
-    tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
+    # tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
 
-    queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.forum.jsonl',
-                     r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl'
-                     ]
+    queries_paths = [r'C:\Users\sayas\.ir_datasets\antique\relevent_result.jsonl']
     queries = load_queries(queries_paths)
 
     all_precisions = []
@@ -140,28 +147,33 @@ if __name__ == '__main__':
             relevance = np.zeros(len(data))
             relevant_docs_found = False  # Flag to check if relevant documents were found for this query
             for pid in query.get('answer_pids', []):
-                # Check if the pid exists in the data, otherwise ignore it
                 if pid in data['pid'].values:
                     relevant_docs_found = True
                     relevance[np.where(data['pid'] == pid)[0]] = 1
 
-            # Proceed with performance evaluation only if relevant documents were found
             if relevant_docs_found:
-                # Check if the top_documents indices are within the range of data indices
+                # Filter out invalid indices that are out of range
                 valid_indices = top_documents.index[top_documents.index < len(data)]
+
                 if valid_indices.size > 0:
                     y_true = relevance[np.asarray(valid_indices).astype(int)]
-                    y_pred = cosine_similarities
+                    y_pred = cosine_similarities[:valid_indices.size]  # Ensure y_pred has the same size as y_true
 
-                    precision, recall = calculate_precision_recall(y_true, y_pred)
+                    if np.sum(y_true) > 0:  # Check if there are relevant documents in the retrieved results
+                        precision, recall = calculate_precision_recall(y_true, y_pred)
+                        map_score = calculate_map_score(y_true, y_pred)
+                    else:
+                        precision, recall, map_score = 0.0, 0.0, 0.0
+
                     all_precisions.append(precision)
                     all_recalls.append(recall)
-
-                    map_score = calculate_map_score(y_true, y_pred)
                     all_map_scores.append(map_score)
 
                     print(
                         f"Query ID: {query.get('qid', 'N/A')}, Precision: {precision}, Recall: {recall}, MAP Score: {map_score}")
+                    print(f"Top Documents: {top_documents['pid'].tolist()}")
+                    print(f"Relevance: {y_true.tolist()}")
+                    print(f"Cosine Similarities: {y_pred.tolist()}")
                 else:
                     print(f"No relevant documents found within the valid range for query ID: {query.get('qid', 'N/A')}")
             else:
