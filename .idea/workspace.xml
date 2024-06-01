@@ -4,21 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;Interface&quot;">
-      <change afterPath="$PROJECT_DIR$/GetDocumentFor/Search.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/R/EvaluationLifeStyle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/R/delete.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fastApi.py" afterDir="false" />
+    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;FastApi&quot;">
+      <change afterPath="$PROJECT_DIR$/Clustering/ft.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SOA/QuerySuggestionService.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SOA/SearchData1Service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SOA/SearchData2Service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SOA/TextProcessService.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clustering/Load.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/Load.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interface/Interface.html" beforeDir="false" afterPath="$PROJECT_DIR$/Interface/Interface.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QueryRefinment/QueryRefinment.py" beforeDir="false" afterPath="$PROJECT_DIR$/QueryRefinment/QueryRefinment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/AA.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/DOCUMENT_CLUSTERING.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/DOCUMENT_CLUSTERING.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/Load.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/TF.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/AvgMAP.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/QueryProcessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dov2VecModel/gensimTop.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GetDocumentFor/Search.py" beforeDir="false" afterPath="$PROJECT_DIR$/GetDocumentForQuery/Search.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion.py" beforeDir="false" afterPath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/Antiq.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/Antique.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion2.py" beforeDir="false" afterPath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/Antique.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/EvaluationAntique.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/EvaluationLifeStyle.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/EvaluationLifeStyle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/MAP.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/SearchDocunent.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/R/TF-IDF.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/TF-IDF.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/oj.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/queryText.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TextProcessing/TextProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/TextProcessing/TextProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fastApi.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,11 +75,11 @@
       <recent name="C:\Users\sayas\PycharmProjects\IR" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sayas\PycharmProjects\IR\SOA" />
       <recent name="C:\Users\sayas\PycharmProjects\IR\badWordEmbedding" />
       <recent name="C:\Users\sayas\PycharmProjects\IR\First" />
       <recent name="C:\Users\sayas\PycharmProjects\IR\Dov2VecModel" />
       <recent name="C:\Users\sayas\PycharmProjects\IR" />
-      <recent name="C:\Users\sayas\PycharmProjects\IR\R" />
     </key>
   </component>
   <component name="RunManager">
@@ -317,7 +330,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716885727648</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="&quot;FastApi&quot;">
+      <option name="closed" value="true" />
+      <created>1717078928301</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1717078928302</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -348,6 +369,7 @@
     <MESSAGE value="&quot;Word Embedding&quot;" />
     <MESSAGE value="&quot;CLUSTERING&quot;" />
     <MESSAGE value="&quot;Interface&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Interface&quot;" />
+    <MESSAGE value="&quot;FastApi&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;FastApi&quot;" />
   </component>
 </project>

@@ -1,39 +1,47 @@
-import pickle
-from sklearn.cluster import MiniBatchKMeans
-from sklearn.decomposition import TruncatedSVD
-import matplotlib.pyplot as plt
+import tensorflow as tf
+import tensorflow_addons as tfa
 import numpy as np
 import joblib
 from scipy.sparse import csr_matrix
 from umap import UMAP
+import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score, davies_bouldin_score
 
-vectorizer_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizerA.pkl"
+# تحميل المتجهات TF-IDF
+vectorizer_file = r"C:\Users\sayas\.ir_datasets\antique\tfidf_vectorizer1.pkl"
 vectorizer = joblib.load(open(vectorizer_file, 'rb'))
 print(f"Loaded TF-IDF vectorizer")
 
-# Load the TF-IDF matrix
-tfidf_matrix_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrixA.pkl"
+tfidf_matrix_file = r"C:\Users\sayas\.ir_datasets\antique\tfidf_matrix1.pkl"
 tfidf_matrix = joblib.load(tfidf_matrix_file)
 print(f"Loaded TF-IDF matrix with shape: {tfidf_matrix.shape}")
 
+# تأكد من أن مصفوفة TF-IDF في صيغة تنسيقية مضغوطة
+tfidf_matrix = csr_matrix(tfidf_matrix)
 
-def create_clusters(doc_vector, num_clusters=5):
-    model = MiniBatchKMeans(n_clusters=num_clusters, batch_size=2000)
-    model.fit(doc_vector)
-    return model
+# Perform dimensionality reduction using UMAP
+umap = UMAP(n_components=2, n_neighbors=15, min_dist=0.1)
+reduced_tfidf = umap.fit_transform(tfidf_matrix.toarray())
 
 
-def top_term_per_cluster(model, vectorizerX):
-    labels = model.labels_
-    unique_labels = set(labels)
+# Function to create clusters using TensorFlow
+def create_clusters(data, num_clusters=5):
+    kmeans = tfa.clustering.KMeans(num_clusters=num_clusters)
+    kmeans.fit(data)
+    cluster_indices = kmeans.predict(data)
+    return kmeans, cluster_indices
+
+
+# Function to get top terms per cluster
+def top_term_per_cluster(cluster_indices, num_clusters, vectorizerX):
+    unique_labels = set(cluster_indices)
     terms = vectorizerX.get_feature_names_out()
 
     for label in unique_labels:
         print(f"Cluster {label}:")
 
         # Find indices of documents in the current cluster
-        indices = np.where(labels == label)[0]
+        indices = np.where(cluster_indices == label)[0]
 
         # Sum the tf-idf values for all documents in the cluster
         tfidf_sum = np.sum(tfidf_matrix[indices], axis=0)
@@ -46,18 +54,20 @@ def top_term_per_cluster(model, vectorizerX):
         print()  # To separate clusters visually
 
 
-def predict_cluster(vectorizerX, model, svd_model, query):
+# Function to predict cluster for a new query
+def predict_cluster(vectorizerX, model, umap_model, query):
     # Transform the query into tf-idf representation
     Y = vectorizerX.transform(query)
 
-    # Reduce the dimensionality of the query using the same SVD model
-    reduced_query = svd_model.transform(Y)
+    # Reduce the dimensionality of the query using the same UMAP model
+    reduced_query = umap_model.transform(Y.toarray())
 
     # Predict the cluster
     distances = model.predict(reduced_query)
     return distances
 
 
+# Function to plot the clusters
 def plot_clusters(reduced_data, labels):
     plt.figure(figsize=(10, 8))
 
@@ -84,27 +94,18 @@ def plot_clusters(reduced_data, labels):
     plt.show()
 
 
-# Ensure the TF-IDF matrix is in sparse format
-tfidf_matrix = csr_matrix(tfidf_matrix)
-
-# Perform dimensionality reduction using UMAP
-umap = UMAP(n_components=2, n_neighbors=15, min_dist=0.1)
-
-reduced_tfidf = umap.fit_transform(tfidf_matrix)
-
 # Create clusters using the reduced TF-IDF matrix
-model = create_clusters(reduced_tfidf)
+model, labels = create_clusters(reduced_tfidf)
 
 # Print top terms per cluster
-top_term_per_cluster(model, vectorizer)
+top_term_per_cluster(labels, 5, vectorizer)
 
-# Predict cluster for a new queryA
+# Predict cluster for a new query
 query = ["example query to classify"]
 prediction = predict_cluster(vectorizer, model, umap, query)
 print(f'The query belongs to cluster {prediction[0]}')
 
 # Evaluate clustering quality
-labels = model.labels_
 silhouette_avg = silhouette_score(reduced_tfidf, labels)
 davies_bouldin = davies_bouldin_score(reduced_tfidf, labels)
 
@@ -113,4 +114,3 @@ print(f"Davies-Bouldin Index: {davies_bouldin}")
 
 # Plot the clusters
 plot_clusters(reduced_tfidf, labels)
-

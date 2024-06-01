@@ -15,6 +15,9 @@ with open(tfidf_matrix_file, 'rb') as file:
 vectorizer_file = r"C:\Users\sayas\.ir_datasets\antique\tfidf_vectorizer.pkl"
 with open(vectorizer_file, 'rb') as file:
     vectorizer = joblib.load(file)
+with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
+          encoding='utf-8') as file:
+    words_to_remove = file.read().splitlines()
 
 processor = TextProcessor()
 query_file = r"C:\Users\sayas\.ir_datasets\antique\qas.result.jsonl"

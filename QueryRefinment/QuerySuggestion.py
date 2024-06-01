@@ -15,6 +15,9 @@ with open(tfidf_matrix_file, 'rb') as file:
 vectorizer_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl"
 with open(vectorizer_file, 'rb') as file:
     vectorizer = joblib.load(file)
+with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
+          encoding='utf-8') as file:
+    words_to_remove = file.read().splitlines()
 
 processor = TextProcessor()
 
@@ -106,5 +109,3 @@ def suggest_similar_queries1(query, n=10, threshold=0.0):
     similar_search_queries = [(search_queries[qid], qid) for _, qid in similar_queries if qid in search_queries]
 
     return similar_search_queries
-
-

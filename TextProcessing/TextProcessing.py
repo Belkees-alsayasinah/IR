@@ -168,14 +168,14 @@ def process_text(text, processor):
     text = processor.normalize_unicode(text)
     text = processor.handle_negations(text)
     text = processor.remove_urls(text)
-    #text = processor.remove_non_english_words(text)
+    # text = processor.remove_non_english_words(text)
     return text
 
 
 def main():
-    with open(r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv', 'r',
+    with open(r'C:\Users\sayas\.ir_datasets\antique\collection.tsv', 'r',
               encoding='utf-8') as input_file, open(
-        r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\result1.tsv', 'w',
+        r'C:\Users\sayas\.ir_datasets\antique\LastResult.tsv', 'w',
         encoding='utf-8') as output_file:
         reader = csv.reader(input_file, delimiter='\t')
         writer = csv.writer(output_file, delimiter='\t')

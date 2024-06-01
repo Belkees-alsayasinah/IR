@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from TextProcessing.TextProcessing import process_text, TextProcessor
 
+
 def load_dataset(file_path):
     try:
         data = pd.read_csv(file_path, delimiter='\t', header=None, names=['pid', 'text'])
@@ -12,8 +13,8 @@ def load_dataset(file_path):
         sys.exit(1)
     return data
 
+
 def get_documents_for_query_dataset1(query):
-    print("fff")
     dataset1_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv'
     tfidf_matrix1_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl"
     vectorizer1_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl"
@@ -37,6 +38,7 @@ def get_documents_for_query_dataset1(query):
     top_documents = data1.iloc[top_documents_indices]
     return top_documents, cosine_similarities[top_documents_indices]
 
+
 def get_documents_for_query_dataset2(query):
     dataset2_path = r'C:\Users\sayas\.ir_datasets\antique\collection.tsv'
     tfidf_matrix2_file = r"C:\Users\sayas\.ir_datasets\antique\tfidf_matrix.pkl"
@@ -58,8 +60,7 @@ def get_documents_for_query_dataset2(query):
 
     n = 10
     top_documents_indices = cosine_similarities.argsort()[-n:][::-1]
-    print("Top document indices:", top_documents_indices)
-    print("Length of data2:", len(data2))
+    # print("Top document indices:", top_documents_indices)
 
     # Check if any of the indices exceed the length of data2
     if any(idx >= len(data2) for idx in top_documents_indices):
@@ -69,4 +70,3 @@ def get_documents_for_query_dataset2(query):
 
     top_documents = data2.iloc[top_documents_indices]
     return top_documents, cosine_similarities[top_documents_indices]
-

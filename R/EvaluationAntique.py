@@ -48,19 +48,6 @@ def load_queries(queries_paths):
     return queries
 
 
-# Load words to remove
-with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
-          encoding='utf-8') as file:
-    words_to_remove = file.read().splitlines()
-
-
-def clean_text(text, words_to_remove):
-    words = text.split()
-    cleaned_words = [word for word in words if word.lower() not in words_to_remove]
-    cleaned_text = ' '.join(cleaned_words)
-    return cleaned_text
-
-
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
@@ -94,7 +81,6 @@ def vectorize_texts(texts):
     return tfidf_matrix, vectorizer
 
 
-# Get documents for query function
 def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
     processed_query = process_text(query, processor)
     query_vector = vectorizer.transform([processed_query])
@@ -105,32 +91,24 @@ def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
     return top_documents, cosine_similarities[top_documents_indices]
 
 
-# Main execution block
 if __name__ == '__main__':
+    print("dataset_path")
     processor = TextProcessor()
 
     dataset_path = r'C:\Users\sayas\.ir_datasets\antique\collection.tsv'
     data = load_dataset(dataset_path)
     data.dropna(subset=['text'], inplace=True)
+    data.reset_index(drop=True, inplace=True)  # Reset index here
+    print("dataset_path")
 
+    print("Columns in the dataset:", data.columns)
     if 'text' not in data.columns:
         print("The dataset does not contain a 'text' column.")
         sys.exit(1)
+    print("start")
 
-    processed_texts = process_texts(data['text'], processor)
-
-    if not processed_texts:
-        print("All documents are empty after preprocessing.")
-        sys.exit(1)
-        # Paths to save/load the R matrix and vectorizer
-    tfidf_matrix_file_path = r'C:\Users\sayas\.ir_datasets\antique\test\tfidf_matrixA.pkl'
-    vectorizer_file_path = r'C:\Users\sayas\.ir_datasets\antique\test\tfidf_vectorizerA.pkl'
-    tfidf_matrix, vectorizer = vectorize_texts(processed_texts)
-    save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, tfidf_matrix_file_path, vectorizer_file_path)
-
-    # tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
-
-    queries_paths = [r'C:\Users\sayas\.ir_datasets\antique\relevent_result.jsonl']
+    tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
+    queries_paths = [r'C:\Users\sayas\.ir_datasets\antique\train\relevent_result.jsonl']
     queries = load_queries(queries_paths)
 
     all_precisions = []
@@ -145,46 +123,24 @@ if __name__ == '__main__':
                                                                          vectorizer, data)
 
             relevance = np.zeros(len(data))
-            relevant_docs_found = False  # Flag to check if relevant documents were found for this query
             for pid in query.get('answer_pids', []):
-                if pid in data['pid'].values:
-                    relevant_docs_found = True
-                    relevance[np.where(data['pid'] == pid)[0]] = 1
+                relevance[np.where(data['pid'] == pid)[0]] = 1
 
-            if relevant_docs_found:
-                # Filter out invalid indices that are out of range
-                valid_indices = top_documents.index[top_documents.index < len(data)]
+            y_true = relevance[top_documents.index]
 
-                if valid_indices.size > 0:
-                    y_true = relevance[np.asarray(valid_indices).astype(int)]
-                    y_pred = cosine_similarities[:valid_indices.size]  # Ensure y_pred has the same size as y_true
+            y_pred = cosine_similarities
+            if y_true.sum() == 0:
+                continue
 
-                    if np.sum(y_true) > 0:  # Check if there are relevant documents in the retrieved results
-                        precision, recall = calculate_precision_recall(y_true, y_pred)
-                        map_score = calculate_map_score(y_true, y_pred)
-                    else:
-                        precision, recall, map_score = 0.0, 0.0, 0.0
+            precision, recall = calculate_precision_recall(y_true, y_pred)
+            all_precisions.append(precision)
+            all_recalls.append(recall)
 
-                    all_precisions.append(precision)
-                    all_recalls.append(recall)
-                    all_map_scores.append(map_score)
+            map_score = calculate_map_score(y_true, y_pred)
+            all_map_scores.append(map_score)
 
-                    print(
-                        f"Query ID: {query.get('qid', 'N/A')}, Precision: {precision}, Recall: {recall}, MAP Score: {map_score}")
-                    print(f"Top Documents: {top_documents['pid'].tolist()}")
-                    print(f"Relevance: {y_true.tolist()}")
-                    print(f"Cosine Similarities: {y_pred.tolist()}")
-                else:
-                    print(f"No relevant documents found within the valid range for query ID: {query.get('qid', 'N/A')}")
-            else:
-                print(f"No relevant documents found for query ID: {query.get('qid', 'N/A')}")
+    avg_precision = np.mean(all_precisions)
+    avg_recall = np.mean(all_recalls)
+    avg_map_score = np.mean(all_map_scores)
 
-    # Calculate average performance metrics only if there were relevant documents found
-    if all_precisions and all_recalls and all_map_scores:
-        avg_precision = np.nanmean(all_precisions)
-        avg_recall = np.nanmean(all_recalls)
-        avg_map_score = np.nanmean(all_map_scores)
-
-        print(f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}")
-    else:
-        print("No relevant documents found for any query.")
+    print(f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}")
