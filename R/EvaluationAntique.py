@@ -1,5 +1,4 @@
 import pickle
-
 import pandas as pd
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -61,7 +60,6 @@ def process_texts(texts, processor):
 
 
 def save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, matrix_file_path, vectorizer_file_path):
-    # Save the R matrix
     with open(matrix_file_path, 'wb') as file:
         pickle.dump(tfidf_matrix, file)
 

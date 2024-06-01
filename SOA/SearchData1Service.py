@@ -28,7 +28,7 @@ def load_dataset(file_path):
 
 
 def process_text_via_api(query):
-    url = "http://127.0.0.1:8000/process_text"  # تأكد من استخدام عنوان IP الصحيح ومسار الخدمة
+    url = "http://127.0.0.1:8000/process_text"
     payload = {"text": query}
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, json=payload, headers=headers)

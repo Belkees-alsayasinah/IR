@@ -48,14 +48,13 @@ class TextProcessor:
         words = self.tokenizer.tokenize(text)
         converted_words = []
         for word in words:
-            # التحقق مما إذا كان النص يمثل رقمًا
-            if word.replace('.', '', 1).isdigit():  # إزالة النقطة العشرية قبل فحص الرقم
+            if word.replace('.', '', 1).isdigit():
                 converted_words.append(word)
             else:
                 if word.isdigit():
                     try:
                         num = int(word)
-                        if num <= 999999999999999:  # تحقق من طول الرقم
+                        if num <= 999999999999999:
                             converted_word = self.inflect_engine.number_to_words(word)
                             converted_words.append(converted_word)
                         else:
@@ -68,16 +67,16 @@ class TextProcessor:
 
     def remove_html_tags(self, text):
         try:
-            # Check if the input text contains HTML tags before parsing
+
             if '<' in text and '>' in text:
                 return BeautifulSoup(text, "html.parser").get_text()
             else:
-                # If no HTML tags are found, return the original text
+
                 return text
         except MarkupResemblesLocatorWarning:
-            # Handle the warning gracefully
+
             logging.warning("MarkupResemblesLocatorWarning: The input looks more like a filename than markup.")
-            # Return the original text if unable to parse as HTML
+
             return text
 
     def normalize_unicode(self, text):
@@ -164,11 +163,9 @@ def process_text(text, processor):
     text = processor.remove_punctuation(text)
     text = processor.clean_text(text, words_to_remove)
     text = processor.expand_contractions(text)
-    # text = processor.spelling_correction(text)
     text = processor.normalize_unicode(text)
     text = processor.handle_negations(text)
     text = processor.remove_urls(text)
-    # text = processor.remove_non_english_words(text)
     return text
 
 

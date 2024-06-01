@@ -60,12 +60,10 @@ def get_documents_for_query_dataset2(query):
 
     n = 10
     top_documents_indices = cosine_similarities.argsort()[-n:][::-1]
-    # print("Top document indices:", top_documents_indices)
 
-    # Check if any of the indices exceed the length of data2
     if any(idx >= len(data2) for idx in top_documents_indices):
         print("Error: Top document indices out-of-bounds")
-        # Handle the error appropriately, such as returning an empty DataFrame
+
         return pd.DataFrame(), []
 
     top_documents = data2.iloc[top_documents_indices]
