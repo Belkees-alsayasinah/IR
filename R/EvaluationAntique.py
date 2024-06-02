@@ -6,15 +6,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 import numpy as np
 import sys
-from TextProcessing.TextProcessing import TextProcessor, process_text
+
+from TextProcessing.TextProcessing import process_text, TextProcessor
 
 sys.path.append('.')
 
 
-def calculate_precision_recall(y_true, y_pred, threshold=0.5):
+def calculate_precision_recall(y_true, y_pred, threshold=0.6):
     y_pred_binary = (y_pred >= threshold).astype(int)
-    precision = precision_score(y_true, y_pred_binary, average='micro', zero_division=0)
-    recall = recall_score(y_true, y_pred_binary, average='micro', zero_division=0)
+    precision = precision_score(y_true, y_pred_binary, average='micro')
+    recall = recall_score(y_true, y_pred_binary, average='micro')
     return precision, recall
 
 
@@ -22,6 +23,14 @@ def calculate_map_score(y_true, y_pred):
     if np.sum(y_true) == 0:
         return 0.0
     return average_precision_score(y_true, y_pred, average='micro')
+
+
+def calculate_mrr(y_true):
+    rank_position = np.where(y_true == 1)[0]
+    if len(rank_position) == 0:
+        return 0
+    else:
+        return 1 / (rank_position[0] + 1)  # +1 because rank positions are 1-based
 
 
 def load_dataset(file_path):
@@ -50,8 +59,7 @@ def load_queries(queries_paths):
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
-        if isinstance(text, str):  # التحقق مما إذا كانت القيمة نصية
-            print("text: " + text)
+        if isinstance(text, str):
             processed_text = process_text(text, processor)
             processed_texts.append(processed_text)
         else:
@@ -59,16 +67,8 @@ def process_texts(texts, processor):
     return processed_texts
 
 
-def save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, matrix_file_path, vectorizer_file_path):
-    with open(matrix_file_path, 'wb') as file:
-        pickle.dump(tfidf_matrix, file)
-
-    with open(vectorizer_file_path, 'wb') as file:
-        pickle.dump(vectorizer, file)
-
-
-def vectorize_texts(texts):
-    vectorizer = TfidfVectorizer()
+def vectorize_texts(texts, processor):
+    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor), max_df=0.5, min_df=1)
     try:
         tfidf_matrix = vectorizer.fit_transform(texts)
     except ValueError as e:
@@ -77,6 +77,14 @@ def vectorize_texts(texts):
         sys.exit(1)
 
     return tfidf_matrix, vectorizer
+
+
+def save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, matrix_file_path, vectorizer_file_path):
+    with open(matrix_file_path, 'wb') as file:
+        pickle.dump(tfidf_matrix, file)
+
+    with open(vectorizer_file_path, 'wb') as file:
+        pickle.dump(vectorizer, file)
 
 
 def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
@@ -90,28 +98,25 @@ def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
 
 
 if __name__ == '__main__':
-    print("dataset_path")
     processor = TextProcessor()
 
-    dataset_path = r'C:\Users\sayas\.ir_datasets\antique\collection.tsv'
+    dataset_path = r'C:\Users\sayas\.ir_datasets\antique\train\collection.tsv'
     data = load_dataset(dataset_path)
     data.dropna(subset=['text'], inplace=True)
     data.reset_index(drop=True, inplace=True)  # Reset index here
-    print("dataset_path")
 
-    print("Columns in the dataset:", data.columns)
     if 'text' not in data.columns:
         print("The dataset does not contain a 'text' column.")
         sys.exit(1)
-    print("start")
 
     tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
-    queries_paths = [r'C:\Users\sayas\.ir_datasets\antique\train\relevent_result.jsonl']
+    queries_paths = [r'C:\Users\sayas\.ir_datasets\antique\test\Answers.jsonl']
     queries = load_queries(queries_paths)
 
     all_precisions = []
     all_recalls = []
     all_map_scores = []
+    all_mrrs = []
 
     for query in queries:
         if 'query' in query:
@@ -137,8 +142,13 @@ if __name__ == '__main__':
             map_score = calculate_map_score(y_true, y_pred)
             all_map_scores.append(map_score)
 
+            mrr = calculate_mrr(y_true)
+            all_mrrs.append(mrr)
+
     avg_precision = np.mean(all_precisions)
     avg_recall = np.mean(all_recalls)
     avg_map_score = np.mean(all_map_scores)
+    avg_mrr = np.mean(all_mrrs)
 
-    print(f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}")
+    print(
+        f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}, Average MRR: {avg_mrr}")

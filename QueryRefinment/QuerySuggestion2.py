@@ -20,8 +20,8 @@ with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\de
     words_to_remove = file.read().splitlines()
 
 processor = TextProcessor()
-query_file = r"C:\Users\sayas\.ir_datasets\antique\qas.result.jsonl"
-search_file = r"C:\Users\sayas\.ir_datasets\antique\relevent_result.jsonl"
+query_file = r"C:\Users\sayas\.ir_datasets\antique\Final\qas.result.jsonl"
+search_file = r"C:\Users\sayas\.ir_datasets\antique\Final\Answers.jsonl"
 processed_queries = []
 try:
     with open(query_file, 'r', encoding='utf-8') as f:

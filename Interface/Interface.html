@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- language: lang-html -->
 <html>
 <head>
     <title>Search Page</title>
@@ -63,11 +64,7 @@
         </div>
     </div>
 
-    <div id="suggestionsSection" class="mt-4" style="display:none;">
-        <h2>Suggested Queries</h2>
-        <div id="suggestionsList">
-        </div>
-    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -105,7 +102,7 @@
         event.preventDefault();
         var query = $('#queryInput').val();
         var dataset = $('input[name="dataset"]:checked').val();
-        $('#queryDisplay').text('Query: ' + query + ' (Dataset: ' + dataset + ')');
+        $('#queryDisplay').text();
 
         $.ajax({
           url: '/query',
@@ -128,7 +125,7 @@
             var similarQueries = response.similar_queries;
             similarQueries.forEach(function(result) {
               var container = $('<div>').addClass('result-container');
-              container.html(`Query ID: ${result.qid}<br>Query: ${result.query}`);
+<!--              container.html(`Query ID: ${result.qid}<br>Query: ${result.query}`);-->
               suggestionsList.append(container);
             });
 

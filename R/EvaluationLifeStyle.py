@@ -5,11 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 import numpy as np
 import sys
-
-from textblob import TextBlob
-
 from TextProcessing.TextProcessing import TextProcessor, process_text
-
 sys.path.append('.')
 
 
@@ -24,10 +20,12 @@ def calculate_map_score(y_true, y_pred):
     return average_precision_score(y_true, y_pred, average='micro')
 
 
-def save_dataset(docs, file_path):
-    with open(file_path, 'w', encoding='utf-8') as file:
-        for pid, text in enumerate(docs, start=1):
-            file.write(f"{pid}\t{text}\n")
+def calculate_mrr(y_true):
+    rank_position = np.where(y_true == 1)[0]
+    if len(rank_position) == 0:
+        return 0
+    else:
+        return 1 / (rank_position[0] + 1)  # +1 because rank positions are 1-based
 
 
 def load_dataset(file_path):
@@ -53,21 +51,9 @@ def load_queries(queries_paths):
     return queries
 
 
-# Load words to remove
 with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
           encoding='utf-8') as file:
     words_to_remove = file.read().splitlines()
-
-
-def clean_text(text, words_to_remove):
-    words = text.split()
-    cleaned_words = [word for word in words if word.lower() not in words_to_remove]
-    cleaned_text = ' '.join(cleaned_words)
-    return cleaned_text
-
-
-def context_aware_spelling_correction(text):
-    return str(TextBlob(text).correct())
 
 
 def process_texts(texts, processor):
@@ -105,18 +91,21 @@ def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
 
 
 if __name__ == '__main__':
-    print("dataset_path")
     processor = TextProcessor()
 
     dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv'
     data = load_dataset(dataset_path)
     data.dropna(subset=['text'], inplace=True)
 
-    print("Columns in the dataset:", data.columns)
     if 'text' not in data.columns:
         print("The dataset does not contain a 'text' column.")
         sys.exit(1)
-    print("start")
+
+    processed_texts = process_texts(data['text'], processor)
+
+    if not processed_texts:
+        print("All documents are empty after preprocessing.")
+        sys.exit(1)
 
     tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
     queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl']
@@ -125,6 +114,7 @@ if __name__ == '__main__':
     all_precisions = []
     all_recalls = []
     all_map_scores = []
+    all_mrrs = []
 
     for query in queries:
         if 'query' in query:
@@ -138,10 +128,8 @@ if __name__ == '__main__':
                 relevance[np.where(data['pid'] == pid)[0]] = 1
 
             y_true = relevance[top_documents.index]
-
             y_pred = cosine_similarities
             if y_true.sum() == 0:
-
                 continue
 
             precision, recall = calculate_precision_recall(y_true, y_pred)
@@ -150,8 +138,14 @@ if __name__ == '__main__':
 
             map_score = calculate_map_score(y_true, y_pred)
             all_map_scores.append(map_score)
+
+            mrr = calculate_mrr(y_true)
+            all_mrrs.append(mrr)
+
     avg_precision = np.mean(all_precisions)
     avg_recall = np.mean(all_recalls)
     avg_map_score = np.mean(all_map_scores)
+    avg_mrr = np.mean(all_mrrs)
 
-    print(f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}")
+    print(
+        f"Average Precision: {avg_precision}, Average Recall: {avg_recall}, Average MAP Score: {avg_map_score}, Average MRR: {avg_mrr}")
