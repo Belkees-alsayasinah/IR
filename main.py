@@ -15,7 +15,7 @@ class QueryModel(BaseModel):
 
 
 async def process_text_via_api(query):
-    url = "http://127.0.0.1:8000/process_text"  # تعديل العنوان إذا لزم الأمر
+    url = "http://127.0.0.1:8005/process_text"  # تعديل العنوان إذا لزم الأمر
     payload = {"text": query}
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, json=payload, headers=headers)
@@ -28,9 +28,9 @@ async def process_text_via_api(query):
 
 async def get_documents_via_api(query, dataset):
     if dataset == 'dataset1':
-        url = "http://127.0.0.1:8001/retrieve_documents_dataset1"  # تعديل العنوان إذا لزم الأمر
+        url = "http://127.0.0.1:8006/retrieve_documents_dataset1"  # تعديل العنوان إذا لزم الأمر
     elif dataset == 'dataset2':
-        url = "http://127.0.0.1:8002/retrieve_documents_dataset2"  # تعديل العنوان إذا لزم الأمر
+        url = "http://127.0.0.1:8007/retrieve_documents_dataset2"  # تعديل العنوان إذا لزم الأمر
     else:
         raise HTTPException(status_code=400, detail="Invalid dataset")
 
@@ -45,7 +45,7 @@ async def get_documents_via_api(query, dataset):
 
 
 async def get_Suggestion_Query(query, dataset):
-    url = "http://127.0.0.1:8003/suggest_query_result"  # تعديل العنوان إذا لزم الأمر
+    url = "http://127.0.0.1:8008/suggest_query_result"  # تعديل العنوان إذا لزم الأمر
 
     if dataset not in ['dataset1', 'dataset2']:
         raise HTTPException(status_code=400, detail="Invalid dataset")

@@ -28,7 +28,7 @@ def load_dataset(file_path):
 
 
 def process_text_via_api(query):
-    url = "http://127.0.0.1:8000/process_text"
+    url = "http://127.0.0.1:8005/process_text"
     payload = {"text": query}
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, json=payload, headers=headers)
@@ -43,8 +43,8 @@ def process_text_via_api(query):
 async def retrieve_documents_dataset1(request: QueryRequest):
     query = request.query
     dataset1_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv'
-    tfidf_matrix1_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl"
-    vectorizer1_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl"
+    tfidf_matrix1_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\Final\tfidf_matrixF.pkl"
+    vectorizer1_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\Final\tfidf_vectorF.pkl"
 
     data1 = load_dataset(dataset1_path)
     data1.dropna(subset=['text'], inplace=True)
@@ -67,4 +67,5 @@ async def retrieve_documents_dataset1(request: QueryRequest):
 
 if __name__ == '__main__':
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8006)

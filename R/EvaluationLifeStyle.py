@@ -69,7 +69,7 @@ def process_texts(texts, processor):
 
 
 def vectorize_texts(texts, processor):
-    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor), max_df=0.5, min_df=1)
+    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor))
     try:
         tfidf_matrix = vectorizer.fit_transform(texts)
     except ValueError as e:
@@ -127,19 +127,19 @@ if __name__ == '__main__':
             for pid in query.get('answer_pids', []):
                 relevance[np.where(data['pid'] == pid)[0]] = 1
 
-            y_true = relevance[top_documents.index]
-            y_pred = cosine_similarities
-            if y_true.sum() == 0:
+            relevantOrNot = relevance[top_documents.index]
+            retrievedDocument = cosine_similarities
+            if relevantOrNot.sum() == 0:
                 continue
 
-            precision, recall = calculate_precision_recall(y_true, y_pred)
+            precision, recall = calculate_precision_recall(relevantOrNot, retrievedDocument)
             all_precisions.append(precision)
             all_recalls.append(recall)
 
-            map_score = calculate_map_score(y_true, y_pred)
+            map_score = calculate_map_score(relevantOrNot, retrievedDocument)
             all_map_scores.append(map_score)
 
-            mrr = calculate_mrr(y_true)
+            mrr = calculate_mrr(relevantOrNot)
             all_mrrs.append(mrr)
 
     avg_precision = np.mean(all_precisions)

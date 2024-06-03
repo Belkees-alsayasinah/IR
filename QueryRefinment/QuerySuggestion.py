@@ -1,4 +1,3 @@
-from flask import Flask
 from sklearn.feature_extraction.text import TfidfVectorizer
 from TextProcessing.TextProcessing import TextProcessor, process_text
 import joblib
@@ -8,11 +7,11 @@ import textdistance
 import nltk
 from nltk.corpus import wordnet
 
-tfidf_matrix_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_matrix.pkl"
+tfidf_matrix_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\Final\tfidf_matrixF.pkl"
 with open(tfidf_matrix_file, 'rb') as file:
     tfidf_matrix = joblib.load(file)
 
-vectorizer_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\tfidf_vectorizer.pkl"
+vectorizer_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\Final\tfidf_vectorF.pkl"
 with open(vectorizer_file, 'rb') as file:
     vectorizer = joblib.load(file)
 with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
@@ -21,7 +20,7 @@ with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\de
 
 processor = TextProcessor()
 
-query_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.result.jsonl"
+query_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\Final\qas.result.jsonl"
 search_file = r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\spaCy\qas.search.jsonl"
 
 processed_queries = []

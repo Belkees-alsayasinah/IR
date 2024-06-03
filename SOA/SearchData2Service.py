@@ -28,7 +28,7 @@ def load_dataset(file_path):
 
 
 def process_text_via_api(query):
-    url = "http://127.0.0.1:8000/process_text"
+    url = "http://127.0.0.1:8005/process_text"
     payload = {"text": query}
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, json=payload, headers=headers)
@@ -42,8 +42,8 @@ def process_text_via_api(query):
 async def retrieve_documents_dataset2(request: QueryRequest):
     query = request.query
     dataset2_path = r'C:\Users\sayas\.ir_datasets\antique\collection.tsv'
-    tfidf_matrix2_file = r"C:\Users\sayas\.ir_datasets\antique\tfidf_matrix.pkl"
-    vectorizer2_file = r"C:\Users\sayas\.ir_datasets\antique\tfidf_vectorizer.pkl"
+    tfidf_matrix2_file = r"C:\Users\sayas\.ir_datasets\antique\Final\tfidf_matrixF.pkl"
+    vectorizer2_file = r"C:\Users\sayas\.ir_datasets\antique\Final\tfidf_vectorF.pkl"
 
     data2 = load_dataset(dataset2_path)
     data2.dropna(subset=['text'], inplace=True)
