@@ -1,4 +1,3 @@
-import pickle
 import pandas as pd
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -6,27 +5,23 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import precision_score, recall_score, average_precision_score
 import numpy as np
 import sys
-
-from TextProcessing.TextProcessing import process_text, TextProcessor
-
+from TextProcessing.TextProcessing import TextProcessor, process_text
 sys.path.append('.')
 
 
-def calculate_precision_recall(y_true, y_pred, threshold=0.6):
-    y_pred_binary = (y_pred >= threshold).astype(int)
-    precision = precision_score(y_true, y_pred_binary, average='micro')
-    recall = recall_score(y_true, y_pred_binary, average='micro')
+def calculate_precision_recall(relevantOrNot, retrievedDocument, threshold=0.6):
+    binaryResult = (retrievedDocument >= threshold).astype(int)
+    precision = precision_score(relevantOrNot, binaryResult, average='micro')
+    recall = recall_score(relevantOrNot, binaryResult, average='micro')
     return precision, recall
 
 
-def calculate_map_score(y_true, y_pred):
-    if np.sum(y_true) == 0:
-        return 0.0
-    return average_precision_score(y_true, y_pred, average='micro')
+def calculate_map_score(relevantOrNot, retrievedDocument):
+    return average_precision_score(relevantOrNot, retrievedDocument, average='micro')
 
 
-def calculate_mrr(y_true):
-    rank_position = np.where(y_true == 1)[0]
+def calculate_mrr(relevantOrNot):
+    rank_position = np.where(relevantOrNot == 1)[0]
     if len(rank_position) == 0:
         return 0
     else:
@@ -56,10 +51,16 @@ def load_queries(queries_paths):
     return queries
 
 
+with open(r"C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\common_words.txt", 'r',
+          encoding='utf-8') as file:
+    words_to_remove = file.read().splitlines()
+
+
 def process_texts(texts, processor):
     processed_texts = []
     for text in texts:
         if isinstance(text, str):
+            print("text: " + text)
             processed_text = process_text(text, processor)
             processed_texts.append(processed_text)
         else:
@@ -68,7 +69,7 @@ def process_texts(texts, processor):
 
 
 def vectorize_texts(texts, processor):
-    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor), max_df=0.5, min_df=1)
+    vectorizer = TfidfVectorizer(preprocessor=lambda x: process_text(x, processor))
     try:
         tfidf_matrix = vectorizer.fit_transform(texts)
     except ValueError as e:
@@ -77,14 +78,6 @@ def vectorize_texts(texts, processor):
         sys.exit(1)
 
     return tfidf_matrix, vectorizer
-
-
-def save_tfidf_matrix_and_vectorizer(tfidf_matrix, vectorizer, matrix_file_path, vectorizer_file_path):
-    with open(matrix_file_path, 'wb') as file:
-        pickle.dump(tfidf_matrix, file)
-
-    with open(vectorizer_file_path, 'wb') as file:
-        pickle.dump(vectorizer, file)
 
 
 def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
@@ -100,17 +93,17 @@ def get_documents_for_query(query, tfidf_matrix, processor, vectorizer, data):
 if __name__ == '__main__':
     processor = TextProcessor()
 
-    dataset_path = r'C:\Users\sayas\.ir_datasets\antique\train\collection.tsv'
+    dataset_path = r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\collection.tsv'
     data = load_dataset(dataset_path)
     data.dropna(subset=['text'], inplace=True)
-    data.reset_index(drop=True, inplace=True)  # Reset index here
 
     if 'text' not in data.columns:
         print("The dataset does not contain a 'text' column.")
         sys.exit(1)
 
+
     tfidf_matrix, vectorizer = vectorize_texts(data['text'], processor)
-    queries_paths = [r'C:\Users\sayas\.ir_datasets\antique\test\Answers.jsonl']
+    queries_paths = [r'C:\Users\sayas\.ir_datasets\lotte\lotte_extracted\lotte\lifestyle\dev\qas.search.jsonl']
     queries = load_queries(queries_paths)
 
     all_precisions = []
@@ -129,20 +122,19 @@ if __name__ == '__main__':
             for pid in query.get('answer_pids', []):
                 relevance[np.where(data['pid'] == pid)[0]] = 1
 
-            y_true = relevance[top_documents.index]
-
-            y_pred = cosine_similarities
-            if y_true.sum() == 0:
+            relevantOrNot = relevance[top_documents.index]
+            retrievedDocument = cosine_similarities
+            if relevantOrNot.sum() == 0:
                 continue
 
-            precision, recall = calculate_precision_recall(y_true, y_pred)
+            precision, recall = calculate_precision_recall(relevantOrNot, retrievedDocument)
             all_precisions.append(precision)
             all_recalls.append(recall)
 
-            map_score = calculate_map_score(y_true, y_pred)
+            map_score = calculate_map_score(relevantOrNot, retrievedDocument)
             all_map_scores.append(map_score)
 
-            mrr = calculate_mrr(y_true)
+            mrr = calculate_mrr(relevantOrNot)
             all_mrrs.append(mrr)
 
     avg_precision = np.mean(all_precisions)

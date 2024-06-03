@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="Antique71%">
+    <list default="true" id="a686efba-9333-4968-9611-a21c45c004d9" name="Changes" comment="&quot;Final&quot;">
+      <change afterPath="$PROJECT_DIR$/Notebook/Clustering/DocumentClustering-checkpoint.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Notebook/Evaluation/EvaluationTFIDF-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QueryRefinment/QueryRefinment.py" beforeDir="false" afterPath="$PROJECT_DIR$/QueryRefinment/QueryRefinment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion.py" beforeDir="false" afterPath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion2.py" beforeDir="false" afterPath="$PROJECT_DIR$/QueryRefinment/QuerySuggestion2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/R/EvaluationLifeStyle.py" beforeDir="false" afterPath="$PROJECT_DIR$/R/EvaluationLifeStyle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/DOCUMENT_CLUSTERING_Ant.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/DOCUMENT_CLUSTERING_Ant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clustering/DOCUMENT_CLUSTERING_Life.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clustering/DOCUMENT_CLUSTERING_Life.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/EvaluationAntique.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/EvaluationAntique.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/EvaluationLifeStyle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/EvaluationLifeStyle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/TF-IDF.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluation/TF-IDF.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/R/gg.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/SOA/SearchData1Service.py" beforeDir="false" afterPath="$PROJECT_DIR$/SOA/SearchData1Service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SOA/SearchData2Service.py" beforeDir="false" afterPath="$PROJECT_DIR$/SOA/SearchData2Service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -40,17 +44,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/sayas/PycharmProjects/IR/R&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/sayas/PycharmProjects/IR/Notebook/Evaluation",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sayas\PycharmProjects\IR\Notebook\Evaluation" />
+      <recent name="C:\Users\sayas\PycharmProjects\IR\Notebook\Clustering" />
       <recent name="C:\Users\sayas\PycharmProjects\IR\R" />
       <recent name="C:\Users\sayas\PycharmProjects\IR\Elevent" />
       <recent name="C:\Users\sayas\PycharmProjects\IR" />
@@ -63,7 +69,7 @@
       <recent name="C:\Users\sayas\PycharmProjects\IR" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="TextProcessor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="IR" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -343,7 +349,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717362764404</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="&quot;Final&quot;">
+      <option name="closed" value="true" />
+      <created>1717433883597</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1717433883597</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -377,6 +391,7 @@
     <MESSAGE value="&quot;FastApi&quot;" />
     <MESSAGE value="&quot;SOA&quot;" />
     <MESSAGE value="Antique71%" />
-    <option name="LAST_COMMIT_MESSAGE" value="Antique71%" />
+    <MESSAGE value="&quot;Final&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Final&quot;" />
   </component>
 </project>

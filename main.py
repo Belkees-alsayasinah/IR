@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import requests
 import os
+
 app = FastAPI()
 template_dir = os.path.abspath('Interface')
 templates = Jinja2Templates(directory=template_dir)
@@ -15,7 +16,7 @@ class QueryModel(BaseModel):
 
 
 async def process_text_via_api(query):
-    url = "http://127.0.0.1:8005/process_text"  # تعديل العنوان إذا لزم الأمر
+    url = "http://127.0.0.1:8005/process_text"
     payload = {"text": query}
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, json=payload, headers=headers)
@@ -28,9 +29,9 @@ async def process_text_via_api(query):
 
 async def get_documents_via_api(query, dataset):
     if dataset == 'dataset1':
-        url = "http://127.0.0.1:8006/retrieve_documents_dataset1"  # تعديل العنوان إذا لزم الأمر
+        url = "http://127.0.0.1:8006/retrieve_documents_dataset1"
     elif dataset == 'dataset2':
-        url = "http://127.0.0.1:8007/retrieve_documents_dataset2"  # تعديل العنوان إذا لزم الأمر
+        url = "http://127.0.0.1:8007/retrieve_documents_dataset2"
     else:
         raise HTTPException(status_code=400, detail="Invalid dataset")
 
@@ -45,7 +46,7 @@ async def get_documents_via_api(query, dataset):
 
 
 async def get_Suggestion_Query(query, dataset):
-    url = "http://127.0.0.1:8008/suggest_query_result"  # تعديل العنوان إذا لزم الأمر
+    url = "http://127.0.0.1:8008/suggest_query_result"
 
     if dataset not in ['dataset1', 'dataset2']:
         raise HTTPException(status_code=400, detail="Invalid dataset")
@@ -64,6 +65,7 @@ async def get_Suggestion_Query(query, dataset):
 @app.get("/", response_class=HTMLResponse)
 async def read_index(request: Request):
     return templates.TemplateResponse("Interface.html", {"request": request})
+
 
 @app.post("/query")
 async def process_query(query: QueryModel):

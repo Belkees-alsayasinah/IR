@@ -6,6 +6,7 @@ import requests
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+
 app = FastAPI()
 
 
@@ -37,6 +38,8 @@ def process_text_via_api(query):
         raise HTTPException(status_code=response.status_code, detail=response.text)
 
     return response.json()["processed_text"]
+
+
 
 @app.post("/retrieve_documents_dataset2", response_model=DocumentResponse)
 async def retrieve_documents_dataset2(request: QueryRequest):
